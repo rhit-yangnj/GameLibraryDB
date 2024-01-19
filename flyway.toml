@@ -10,8 +10,8 @@ schemaModel = "./schema-model"
 [redgateCompare]
 filterFile = "filter.rgf"
 
-[redgateCompare.sqlserver]
-filterFile = "Filter.scpf"
+  [redgateCompare.sqlserver]
+  filterFile = "Filter.scpf"
 
 [redgateCompare.sqlserver.options.behavior]
 addCreateOrAlterForRerunnableScripts = false
@@ -106,10 +106,18 @@ transportClrDataTypesAsBinary = false
 [flyway]
 mixed = true
 outOfOrder = true
-locations = ["filesystem:migrations"]
+locations = [ "filesystem:migrations" ]
 validateMigrationNaming = true
-check = {majorTolerance = 0}
 defaultSchema = "dbo"
+
+  [flyway.check]
+  majorTolerance = 0
 
 [flyway.plugins.clean]
 mode = "all"
+
+[environments.yangnj]
+url = "jdbc:sqlserver://golem.csse.rose-hulman.edu;databaseName=GameLibraryDB_yangnj;encrypt=false"
+user = "yangnj"
+password = "RoyIs@Turtl3"
+displayName = "yangnj"
