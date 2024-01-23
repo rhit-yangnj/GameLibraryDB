@@ -1,10 +1,15 @@
+import gui.ConnectionManager;
 import gui.MainViewer;
 
 public class MainApp {
 
 	public static void main(String[] args) {
-		MainViewer registerViewer = new MainViewer();
+		ConnectionManager connectionManager = new ConnectionManager("gameLibraryDB.properties");
+		connectionManager.connect();
+		MainViewer registerViewer = new MainViewer(connectionManager);
 		registerViewer.viewerMain();
 	}
+	
+	
 
 }

@@ -11,6 +11,13 @@ import javax.swing.JTextField;
 
 public class MainViewer {
 	
+	private ConnectionManager connectionManager;
+	
+	public MainViewer(ConnectionManager connectionManager) {
+		this.connectionManager = connectionManager;
+	}
+	
+	
 	public void viewerMain() {
 		final String frameTitle = "Game Library - Register";
 		final int frameWidth = 1080;
