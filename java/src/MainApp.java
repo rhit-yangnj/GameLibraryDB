@@ -1,9 +1,9 @@
-import gui.RegisterViewer;
+import gui.MainViewer;
 
 public class MainApp {
 
 	public static void main(String[] args) {
-		RegisterViewer registerViewer = new RegisterViewer();
+		MainViewer registerViewer = new MainViewer();
 		registerViewer.viewerMain();
 	}
 

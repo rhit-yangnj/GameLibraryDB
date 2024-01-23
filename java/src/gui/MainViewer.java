@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
-public class RegisterViewer {
+public class MainViewer {
 	
 	public void viewerMain() {
 		final String frameTitle = "Game Library - Register";
