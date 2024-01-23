@@ -118,6 +118,12 @@ mode = "all"
 
 [environments.yangnj]
 url = "jdbc:sqlserver://golem.csse.rose-hulman.edu;databaseName=GameLibraryDB_yangnj;encrypt=false"
-user = "yangnj"
-password = "RoyIs@Turtl3"
-displayName = "yangnj"
+
+[environments.granadec]
+url = "jdbc:sqlserver://golem.csse.rose-hulman.edu;databaseName=GameLibraryDB_granadec;encrypt=false"
+
+[environments.linf]
+url = "jdbc:sqlserver://golem.csse.rose-hulman.edu;databaseName=GameLibraryDB_linf;encrypt=false"
+
+[environments.main]
+url = "jdbc:sqlserver://golem.csse.rose-hulman.edu;databaseName=GameLibraryDB;encrypt=false"
