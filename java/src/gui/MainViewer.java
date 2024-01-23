@@ -32,6 +32,11 @@ public class MainViewer {
 		RegisterPanel registerScreen = new RegisterPanel();
 		tabs.addTab("Register", null, registerScreen, "Register an account");
 		
+
+		//Add Login screens as new tabs
+		LoginPanel LoginScreen = new LoginPanel();
+		tabs.addTab("Login Here", null, LoginScreen, "Login to your account here");
+		
 		
 		frame.add(tabs);
 		
