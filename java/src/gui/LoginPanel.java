@@ -56,6 +56,7 @@ public class LoginPanel extends JPanel{
     		@Override
     		public void actionPerformed(ActionEvent e) {
     			if (login(usernameField.getText(),passwordField.getPassword())){
+    				userManager.setUser(usernameField.getText());
 					infoLabel.setText("Login Successful!");
 				}
     		}
