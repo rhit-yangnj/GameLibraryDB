@@ -52,7 +52,7 @@ public class RegisterPanel extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (!passwordField.getPassword().equals(confirmPasswordField.getPassword())) {
+				if (passwordField.getPassword() != confirmPasswordField.getPassword()) {
 					infoLabel.setText("Passwords do not match");
 				} else if (passwordField.getPassword().equals("")) {
 					infoLabel.setText("Password cannot be empty");
