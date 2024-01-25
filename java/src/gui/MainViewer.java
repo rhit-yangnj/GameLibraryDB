@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -31,6 +33,11 @@ public class MainViewer {
 		frame.setSize(frameWidth, frameHeight);
 		frame.setLocation(frameXLoc, frameYLoc);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.addWindowListener(new WindowAdapter() {
+		    public void windowClosing(WindowEvent e) {
+		        connectionManager.closeConnection();
+		    }
+		});
 		
 		//Create tabs
 		JTabbedPane tabs = new JTabbedPane();
@@ -38,6 +45,9 @@ public class MainViewer {
 		//Add screens as new tabs
 		RegisterPanel registerScreen = new RegisterPanel(connectionManager);
 		tabs.addTab("Register", null, registerScreen, "Register an account");
+		AddGamePanel gameScreen = new AddGamePanel();
+		tabs.addTab("Games", null, gameScreen, "Browse your library");
+		
 		
 
 		//Add Login screens as new tabs

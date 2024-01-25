@@ -1,3 +1,5 @@
+package gui;
+
 import gui.ConnectionManager;
 import gui.MainViewer;
 
