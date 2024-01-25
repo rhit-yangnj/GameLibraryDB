@@ -1,6 +1,3 @@
-USE GameLibraryDB_yangnj
-GO
-
 --Delete Game Procedure
 CREATE OR ALTER PROCEDURE deleteGame (
 	@Name varchar(50)
