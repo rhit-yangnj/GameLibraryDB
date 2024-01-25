@@ -12,6 +12,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Random;
 
@@ -52,7 +53,7 @@ public class RegisterPanel extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (passwordField.getPassword() != confirmPasswordField.getPassword()) {
+				if (!Arrays.equals(passwordField.getPassword(), confirmPasswordField.getPassword())) {
 					infoLabel.setText("Passwords do not match");
 				} else if (passwordField.getPassword().equals("")) {
 					infoLabel.setText("Password cannot be empty");
