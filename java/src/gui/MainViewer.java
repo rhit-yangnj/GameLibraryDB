@@ -14,9 +14,11 @@ import javax.swing.JTextField;
 public class MainViewer {
 	
 	private ConnectionManager connectionManager;
+	private UserManager userManager;
 	
 	public MainViewer(ConnectionManager connectionManager) {
 		this.connectionManager = connectionManager;
+		this.userManager = new UserManager();
 	}
 	
 	
@@ -43,9 +45,9 @@ public class MainViewer {
 		JTabbedPane tabs = new JTabbedPane();
 		
 		//Add screens as new tabs
-		RegisterPanel registerScreen = new RegisterPanel(connectionManager);
+		RegisterPanel registerScreen = new RegisterPanel(connectionManager, userManager);
 		tabs.addTab("Register", null, registerScreen, "Register an account");
-		AddGamePanel gameScreen = new AddGamePanel();
+		AddGamePanel gameScreen = new AddGamePanel(connectionManager, userManager);
 		tabs.addTab("Games", null, gameScreen, "Browse your library");
 		
 		

@@ -30,6 +30,7 @@ public class RegisterPanel extends JPanel {
 	private static final Base64.Encoder enc = Base64.getEncoder();
 	
 	private ConnectionManager connectionManager;
+	private UserManager userManager;
 	
 	JPanel inputPanel = new JPanel();
 	JPanel buttonPanel = new JPanel();
@@ -40,8 +41,9 @@ public class RegisterPanel extends JPanel {
 	JButton submitButton = new JButton("Submit");
 	JLabel infoLabel = new JLabel("Enter a Username and Password");
 	
-	public RegisterPanel(ConnectionManager connectionManager) {
+	public RegisterPanel(ConnectionManager connectionManager, UserManager userManager) {
 		this.connectionManager = connectionManager;
+		this.userManager = userManager;
 		usernameField.setText("Username");
 		passwordField.setText("Password");
 		confirmPasswordField.setText("Confirm Password");
