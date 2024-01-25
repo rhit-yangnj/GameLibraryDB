@@ -1,6 +1,3 @@
-USE [GameLibraryDB_yangnj]
-GO
-
 /* Create Database Tables */
 SET ANSI_NULLS ON
 GO

@@ -1,6 +1,3 @@
-USE GameLibraryDB_yangnj
-GO
-
 --Update Game Procedure
 --If @NewDescription or @NewStudioName is null, the previous value for the relevant variable will be kept
 CREATE OR ALTER PROCEDURE updateGame (

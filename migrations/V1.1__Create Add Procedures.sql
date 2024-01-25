@@ -1,6 +1,3 @@
-USE GameLibraryDB_yangnj
-GO
-
 --Add Game Procedure
 CREATE OR ALTER PROCEDURE addGame (
 	@Name varchar(50),
