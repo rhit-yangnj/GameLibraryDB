@@ -1,5 +1,6 @@
 import gui.ConnectionManager;
 import gui.MainViewer;
+import gui.UserManager;
 
 public class MainApp {
 
