@@ -34,6 +34,7 @@ public class ConnectionManager {
 				.replace("${pass}", this.password);
 		try {
 			this.connection = DriverManager.getConnection(fullURL);
+			System.out.println("Successfully connected to database.");
 		} catch (SQLException e) { 
 			e.printStackTrace();
 		}
