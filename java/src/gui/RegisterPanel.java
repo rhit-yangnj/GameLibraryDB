@@ -12,6 +12,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Random;
 
@@ -22,6 +23,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
@@ -36,8 +38,8 @@ public class RegisterPanel extends JPanel {
 	JPanel buttonPanel = new JPanel();
 
 	JTextField usernameField = new JTextField(20);
-	JTextField passwordField = new JTextField(20);
-	JTextField confirmPasswordField = new JTextField(20);
+	JPasswordField passwordField = new JPasswordField(20);
+	JPasswordField confirmPasswordField = new JPasswordField(20);
 	JButton submitButton = new JButton("Submit");
 	JLabel infoLabel = new JLabel("Enter a Username and Password");
 	
@@ -51,15 +53,18 @@ public class RegisterPanel extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (!passwordField.getText().equals(confirmPasswordField.getText())) {
-						infoLabel.setText("Passwords do not match");
+				if (!Arrays.equals(passwordField.getPassword(), confirmPasswordField.getPassword())) {
+					infoLabel.setText("Passwords do not match");
+				} else if (passwordField.getPassword().equals("")) {
+					infoLabel.setText("Password cannot be empty");
+				} else if (usernameField.getText().equals("")) {
+					infoLabel.setText("Username cannot be empty");
 				} else {
-					if (register(usernameField.getText(), passwordField.getText())) {
+					if (register(usernameField.getText(), passwordField.getPassword())) {
 						infoLabel.setText("Successfully registered account!");
 					}
 				}
 			}
-			
 		}); 
 			
 		inputPanel.add(usernameField, BorderLayout.NORTH);
@@ -72,7 +77,7 @@ public class RegisterPanel extends JPanel {
 		this.add(buttonPanel);
 	}
 	
-	private boolean register(String username, String password) {
+	private boolean register(String username, char[] password) {
 		byte[] passSalt = getNewSalt();
 		String passHash = hashPassword(passSalt, password);
 		int returnCode = 3;
@@ -130,9 +135,9 @@ public class RegisterPanel extends JPanel {
 		return enc.encodeToString(data);
 	}
 
-	public String hashPassword(byte[] salt, String password) {
+	public String hashPassword(byte[] salt, char[] password) {
 
-		KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
+		KeySpec spec = new PBEKeySpec(password, salt, 65536, 128);
 		SecretKeyFactory f;
 		byte[] hash = null;
 		try {

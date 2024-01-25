@@ -53,7 +53,7 @@ public class MainViewer {
 		
 
 		//Add Login screens as new tabs
-		LoginPanel LoginScreen = new LoginPanel();
+		LoginPanel LoginScreen = new LoginPanel(connectionManager, userManager);
 		tabs.addTab("Login Here", null, LoginScreen, "Login to your account here");
 		
 		
