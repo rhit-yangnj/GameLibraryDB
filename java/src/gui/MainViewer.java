@@ -38,6 +38,8 @@ public class MainViewer {
 		//Add screens as new tabs
 		RegisterPanel registerScreen = new RegisterPanel();
 		tabs.addTab("Register", null, registerScreen, "Register an account");
+		AddGamePanel addGameScreen = new AddGamePanel();
+		tabs.addTab("Add Game", null, addGameScreen, "Add a game to your account when logged in");
 		
 
 		//Add Login screens as new tabs
