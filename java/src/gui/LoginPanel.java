@@ -77,6 +77,7 @@ public class LoginPanel extends JPanel {
 				String correctHash = rs.getString("HashPass"); 
 				String inputHash = hashPassword(salt, password);
 				if(correctHash.equals(inputHash)) {
+					this.userManager.setUser(username);
 					 JOptionPane.showMessageDialog(null, "Login Successful");
 					return true; 
 				}
