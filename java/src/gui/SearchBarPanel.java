@@ -1,6 +1,14 @@
 package gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -11,6 +19,7 @@ public class SearchBarPanel extends JPanel {
 	
 	private JTextField gameNameInput;
 	private JTextField studioInput;
+	private JTextField platformInput;
 	private JTextField genreInput;
 	private JButton searchButton;
 	private String username;
@@ -24,11 +33,20 @@ public class SearchBarPanel extends JPanel {
 		this.connectionManager = connectionManager;
 		this.gameNameInput = new JTextField(20);
 		this.studioInput = new JTextField(20);
+		this.platformInput = new JTextField(20);
 		this.genreInput = new JTextField(20);
 		gameNameInput.setText("Game Name");
 		studioInput.setText("Studio Name");
 		genreInput.setText("Genre");
 		this.searchButton = new JButton("Search");
+		this.searchButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				searchGames(username, gameNameInput.getText(), studioInput.getText(), platformInput.getText(), genreInput.getText());
+			}
+			
+		}); 
 		
 		this.add(gameNameInput);
 		this.add(studioInput);
@@ -36,29 +54,22 @@ public class SearchBarPanel extends JPanel {
 		this.add(searchButton);
 	}
 	
-	private String buildSearchQueryString(String gameName, String studio, String genre) {
-		String sqlStatement = "SELECT * \nFROM Game\n";
-		ArrayList<String> wheresToAdd = new ArrayList<String>();
-
-		if (gameName != null) {
-			wheresToAdd.add("Restaurant = ?");
+	private void searchGames(String username, String gameName, String studio, String platform, String genre) {
+		Connection connection = connectionManager.getConnection();
+		
+		CallableStatement stmt;
+		try {
+			stmt = connection.prepareCall("{call SearchGames(?,?,?,?,?)}");
+			stmt.setString(1, username);
+			stmt.setString(2, gameName);
+			stmt.setString(3, studio);
+			stmt.setString(4, platform);
+			stmt.setString(5, genre);
+			ResultSet rs = stmt.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		if (studio != null) {
-			wheresToAdd.add("Soda = ?");
-		}
-		if (genre != null) {
-			
-		}
-		boolean isFirst = true;
-		while (wheresToAdd.size() > 0) {
-			if (isFirst) {
-				sqlStatement = sqlStatement + " WHERE " + wheresToAdd.remove(0);
-				isFirst = false;
-			} else {
-				sqlStatement = sqlStatement + " AND " + wheresToAdd.remove(0);
-			}
-		}
-		return sqlStatement;
+		
 	}
 	
 }
