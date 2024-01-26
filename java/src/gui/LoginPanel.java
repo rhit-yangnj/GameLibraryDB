@@ -63,23 +63,22 @@ public class LoginPanel extends JPanel {
 		add(new JLabel());
 		add(loginButton);
 		add(infoLabel);
-
 	}
 
 	public boolean login(String username, char[] password) {
 		Connection connection = connectionManager.getConnection();
-		String query = "SELECT PasswordSalt, PasswordHash FROM User WHERE Username = ?";
+		String query = "SELECT Salt, HashPass FROM [User] WHERE Username = ?";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(query);
-			stmt.setString(1, username);
+			stmt.setString(1, username); 
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-				byte[] salt = rs.getBytes("PasswordSalt");
-				String correctHash = rs.getString("PasswordHash");
+				byte[] salt = rs.getBytes("Salt");
+				String correctHash = rs.getString("HashPass"); 
 				String inputHash = hashPassword(salt, password);
 				if(correctHash.equals(inputHash)) {
 					 JOptionPane.showMessageDialog(null, "Login Successful");
-					return true;
+					return true; 
 				}
 				
 				
