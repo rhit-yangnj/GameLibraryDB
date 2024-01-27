@@ -49,6 +49,8 @@ public class MainViewer {
 		tabs.addTab("Register", null, registerScreen, "Register an account");
 		AddGamePanel gameScreen = new AddGamePanel(connectionManager, userManager);
 		tabs.addTab("Games", null, gameScreen, "Browse your library");
+		SearchBarPanel searchPanel = new SearchBarPanel(connectionManager, userManager);
+		tabs.addTab("Search", null, searchPanel, "Search for games");
 		
 		
 
