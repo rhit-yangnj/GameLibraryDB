@@ -104,6 +104,7 @@ skipIntegrityChecksForForeignKeys = false
 transportClrDataTypesAsBinary = false
 
 [flyway]
+detectEncoding=true
 mixed = true
 outOfOrder = true
 locations = [ "filesystem:migrations" ]
