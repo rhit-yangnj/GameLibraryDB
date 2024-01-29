@@ -34,15 +34,17 @@ public class LoginPanel extends JPanel {
 	JPanel buttonPanel = new JPanel();
 	private ConnectionManager connectionManager;
 	private UserManager userManager;
+	private GameEditPanel gameEditPanel;
 	JTextField usernameField = new JTextField(20);
 	JPasswordField passwordField = new JPasswordField(20);
 	JLabel infoLabel = new JLabel("Enter a Username and Password");
 	JButton loginButton = new JButton("Login");
 
-	public LoginPanel(ConnectionManager connectionManager, UserManager userManager) {
+	public LoginPanel(ConnectionManager connectionManager, UserManager userManager, GameEditPanel gameEditPanel) {
 		setLayout(new GridLayout(20, 10));
 		this.connectionManager = connectionManager;
 		this.userManager = userManager;
+		this.gameEditPanel = gameEditPanel;
 		JLabel userNameLabel = new JLabel("Username:");
 		JLabel passwordLabel = new JLabel("Password:");
 
@@ -50,7 +52,11 @@ public class LoginPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (login(usernameField.getText(), passwordField.getPassword())) {
+				String givenUsername = usernameField.getText();
+				if (login(givenUsername, passwordField.getPassword())) {
+					userManager.setUser(givenUsername);
+					System.out.println("HitREDO");
+					gameEditPanel.redoPersonalGames();
 					infoLabel.setText("Login Successful!");
 				}
 			}
