@@ -53,8 +53,10 @@ public class MainViewer {
 		tabs.addTab("Login Here", null, LoginScreen, "Login to your account here");
 		tabs.addTab("Games", null, gameScreen, "Browse your library");
 		SearchBarPanel searchPanel = new SearchBarPanel(connectionManager, userManager);
-		tabs.addTab("Search", null, searchPanel, "Search for games");
+		tabs.addTab("Search", null, searchPanel, "Search for games"); 
 		
+		NotePanel NoteScreen = new NotePanel(connectionManager, userManager);
+		tabs.addTab("Add Note Here", null, NoteScreen, "Add game notes here");
 		
 		frame.add(tabs);
 		
