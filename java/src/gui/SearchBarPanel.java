@@ -163,6 +163,7 @@ public class SearchBarPanel extends JPanel {
 			}
 			ResultSet rs = stmt.executeQuery();
 			this.mostRecentSearch = parseResults(rs);
+			System.out.println(this.mostRecentSearch);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
