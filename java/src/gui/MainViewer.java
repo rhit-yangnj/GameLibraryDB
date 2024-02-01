@@ -44,6 +44,8 @@ public class MainViewer {
 		//Create tabs
 		JTabbedPane tabs = new JTabbedPane();
 		
+		FullTablePanel tableScreen = new FullTablePanel(connectionManager, userManager);
+		
 		//Add screens as new tabs
 		RegisterPanel registerScreen = new RegisterPanel(connectionManager, userManager);
 		tabs.addTab("Register", null, registerScreen, "Register an account");
@@ -53,7 +55,7 @@ public class MainViewer {
 		SearchBarPanel searchPanel = new SearchBarPanel(connectionManager, userManager);
 		tabs.addTab("Search", null, searchPanel, "Search for games");
 		
-		UpdateManager updateManager = new UpdateManager(null, gameScreen);
+		UpdateManager updateManager = new UpdateManager(tableScreen, gameScreen);
 		
 		LoginPanel LoginScreen = new LoginPanel(connectionManager, userManager, updateManager);
 		tabs.addTab("Login Here", null, LoginScreen, "Login to your account here");

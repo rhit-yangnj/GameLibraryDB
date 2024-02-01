@@ -171,11 +171,7 @@ public class GameEditPanel extends JPanel {
 		this.removeGameList.removeAllItems();
 		String[] currentList = getAllPersonalGames();
 		
-		System.out.println("CurrentGameWork, list incoming");
-		System.out.println(currentList.toString());
-		
 		for(int i = 0; i < currentList.length; i++) {
-			System.out.println(currentList[i]);
 			this.removeGameList.addItem(currentList[i]);
 		}
 	}

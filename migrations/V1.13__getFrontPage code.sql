@@ -7,12 +7,12 @@ AS
 		RETURN 1
 	END
 
-    select ga.* , STRING_AGG(ge.[Name], ', ') AS 'Genres'
+    select ga.[Name], ga.[Description], ga.[ReleaseDate], STRING_AGG(ge.[Name], ', ') AS 'Genres'
     from Game as ga
     Join GameHasGenre as ghg on ghg.GameID = ga.ID
     Join Genre as ge on ge.[Name] = ghg.GenreName
     Join UserHasGame as uhg on uhg.Game = ga.ID
     Join [User] as u on u.Username = uhg.[User]
 	where u.Username = @Username
-    Group by ga.ID, ga.[Name], ga.[Description], ga.[ReleaseDate]
+    Group by ga.[Name], ga.[Description], ga.[ReleaseDate]
 GO
