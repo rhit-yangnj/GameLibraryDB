@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -15,6 +16,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -28,6 +30,9 @@ public class SearchBarPanel extends JPanel {
 	private JTextField platformInput;
 	private JTextField genreInput;
 	private JButton searchButton;
+	private JCheckBox searchUserCheckBox;
+	private boolean searchUserLibrary;
+	
 	
 	private HashMap<String, GameSearchResultEntry> mostRecentSearch;
 	
@@ -42,6 +47,7 @@ public class SearchBarPanel extends JPanel {
 		this.studioInput = new JTextField(20);
 		this.platformInput = new JTextField(20);
 		this.genreInput = new JTextField(20);
+		this.searchUserCheckBox = new JCheckBox("Search My Library");
 		gameNameInput.setText("Game Name");
 		gameNameInput.setForeground(Color.GRAY);
 		gameNameInput.addFocusListener(new FocusListener() {
@@ -119,7 +125,7 @@ public class SearchBarPanel extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (userManager != null) {
+				if (searchUserCheckBox.isSelected()) {
 					searchGames(userManager.getUser(), gameNameInput.getText(), studioInput.getText(), platformInput.getText(), genreInput.getText());
 				} else {
 					searchGames(null, gameNameInput.getText(), studioInput.getText(), platformInput.getText(), genreInput.getText());
@@ -127,11 +133,13 @@ public class SearchBarPanel extends JPanel {
 			}
 		}); 
 		
+		this.add(searchUserCheckBox);
 		this.add(gameNameInput);
 		this.add(studioInput);
 		this.add(platformInput);
 		this.add(genreInput);
 		this.add(searchButton);
+		
 	}
 	
 	private void searchGames(String username, String gameName, String studio, String platform, String genre) {
@@ -163,6 +171,7 @@ public class SearchBarPanel extends JPanel {
 			}
 			ResultSet rs = stmt.executeQuery();
 			this.mostRecentSearch = parseResults(rs);
+			System.out.println(this.mostRecentSearch);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
