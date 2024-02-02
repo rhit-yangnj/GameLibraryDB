@@ -52,14 +52,7 @@ public class MainViewer {
 		GameEditPanel gameScreen = new GameEditPanel(connectionManager, userManager);
 		SearchBarPanel searchPanel = new SearchBarPanel(connectionManager, userManager);
 		
-		NotePanel NoteScreen = new NotePanel(connectionManager, userManager);
-		tabs.addTab("Add Note Here", null, NoteScreen, "Add game notes here");
 		
-
-		
-		ReviewPanel ReviewScreen = new ReviewPanel(connectionManager, userManager);
-		tabs.addTab("Add Review Here", null, ReviewScreen, "Add game reviews here");
-
 		UpdateManager updateManager = new UpdateManager(tableScreen, gameScreen);
 		
 		LoginPanel LoginScreen = new LoginPanel(connectionManager, userManager, updateManager);
@@ -68,7 +61,6 @@ public class MainViewer {
 		tabs.addTab("Search", null, searchPanel, "Search for games");
 		tabs.addTab("Edit Games", null, gameScreen, "Edit your library");
 		tabs.addTab("See Games", null, tableScreen, "Browse your library");
-
 		
 		frame.add(tabs);
 		
