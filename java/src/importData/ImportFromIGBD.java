@@ -58,7 +58,7 @@ public class ImportFromIGBD {
 		if (connectionManager.connect()) {
 			igdbImporter.connection = connectionManager.getConnection();
 			
-			igdbImporter.requestGames(20);
+			igdbImporter.requestGames(10);
 			igdbImporter.importGames();
 			
 			connectionManager.closeConnection();
