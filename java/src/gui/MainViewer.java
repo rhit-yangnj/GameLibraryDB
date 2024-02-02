@@ -57,6 +57,8 @@ public class MainViewer {
 		
 		UpdateManager updateManager = new UpdateManager(tableScreen, gameScreen);
 		
+		gameScreen.setUpdateManager(updateManager);
+		
 		LoginPanel LoginScreen = new LoginPanel(connectionManager, userManager, updateManager);
 		tabs.addTab("Register", null, registerScreen, "Register an account");
 		tabs.addTab("Login Here", null, LoginScreen, "Login to your account here");
