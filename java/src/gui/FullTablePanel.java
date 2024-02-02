@@ -74,16 +74,6 @@ public class FullTablePanel extends JPanel {
 			
 			Object[][] dsf = new Object[results.size()][4];
 			
-//			Object[][] dsf2 = results.toArray(dsf);
-//			
-//			for(int i = 0; i < dsf2.length; i++) {
-//				System.out.print("[");
-//				for(int j=0; j < dsf2[i].length; j++) {
-//					System.out.print(dsf[i][j].toString() + ", ");
-//				}
-//				System.out.println("]");
-//			}
-			
 			return results.toArray(dsf);
 			
 		} catch (SQLException e) {
