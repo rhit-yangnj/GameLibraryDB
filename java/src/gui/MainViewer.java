@@ -48,17 +48,19 @@ public class MainViewer {
 		
 		//Add screens as new tabs
 		RegisterPanel registerScreen = new RegisterPanel(connectionManager, userManager);
-		tabs.addTab("Register", null, registerScreen, "Register an account");
 		//Add Login screens as new tabs
 		GameEditPanel gameScreen = new GameEditPanel(connectionManager, userManager);
-		tabs.addTab("Games", null, gameScreen, "Browse your library");
 		SearchBarPanel searchPanel = new SearchBarPanel(connectionManager, userManager);
-		tabs.addTab("Search", null, searchPanel, "Search for games");
+		
 		
 		UpdateManager updateManager = new UpdateManager(tableScreen, gameScreen);
 		
 		LoginPanel LoginScreen = new LoginPanel(connectionManager, userManager, updateManager);
+		tabs.addTab("Register", null, registerScreen, "Register an account");
 		tabs.addTab("Login Here", null, LoginScreen, "Login to your account here");
+		tabs.addTab("Search", null, searchPanel, "Search for games");
+		tabs.addTab("Edit Games", null, gameScreen, "Edit your library");
+		tabs.addTab("See Games", null, tableScreen, "Browse your library");
 		
 		frame.add(tabs);
 		

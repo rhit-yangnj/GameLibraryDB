@@ -19,22 +19,29 @@ public class FullTablePanel extends JPanel {
 	private JScrollPane scrollPane;
 	private JTable table;
 	
-	String[] columnNames = {"Name", "Release Date", "Description", "Genres"};
+	Object[] columnNames = {"Name", "Release Date", "Description", "Genres"};
 	
 	public FullTablePanel(ConnectionManager connectionManager, UserManager userManager) {
 		this.connectionManager = connectionManager;
 		this.userManager = userManager;		
-	}
-
-	public void UpdateView() {
 		this.table = new JTable(BuildTable(), columnNames);
 		this.scrollPane = new JScrollPane(table);
 		table.setFillsViewportHeight(true);
+		this.add(scrollPane);
+	}
+
+	public void UpdateView() {
+		this.remove(scrollPane);
+		this.table = new JTable(BuildTable(), columnNames);
+		this.scrollPane = new JScrollPane(table);
+		table.setFillsViewportHeight(true);
+		this.add(scrollPane);
 	}
 	
 	public Object[][] BuildTable() {
+		
 		if(userManager.getUser() == null) {
-			Object[][] current = {{"Log In to use"}};
+			Object[][] current = {{"Log In to use", "Log In to use", "Log In to use", "Log In to use"}};
 			return current;
 		}
 		
@@ -44,7 +51,7 @@ public class FullTablePanel extends JPanel {
 						
 		CallableStatement stmt;
 		try {
-			stmt = connection.prepareCall("{call getPersonalGames(?)}");
+			stmt = connection.prepareCall("{call getFrontPage(?)}");
 			stmt.setString(1, userManager.getUser());
 			
 			ResultSet rs = stmt.executeQuery();
@@ -67,11 +74,21 @@ public class FullTablePanel extends JPanel {
 			
 			Object[][] dsf = new Object[results.size()][4];
 			
+//			Object[][] dsf2 = results.toArray(dsf);
+//			
+//			for(int i = 0; i < dsf2.length; i++) {
+//				System.out.print("[");
+//				for(int j=0; j < dsf2[i].length; j++) {
+//					System.out.print(dsf[i][j].toString() + ", ");
+//				}
+//				System.out.println("]");
+//			}
+			
 			return results.toArray(dsf);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			Object[][] current = {{"Error Encountered"}};
+			Object[][] current = {{"Error Encountered", "Error Encountered", "Error Encountered", "Error Encountered"}};
 			return current;
 		}
 	}

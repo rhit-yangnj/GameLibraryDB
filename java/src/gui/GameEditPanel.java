@@ -176,6 +176,15 @@ public class GameEditPanel extends JPanel {
 		}
 	}
 	
+	public void redoStoredGameList() {
+		this.GameList.removeAllItems();
+		String[] currentList = getAllStoredGames();
+		
+		for(int i = 0; i < currentList.length; i++) {
+			this.GameList.addItem(currentList[i]);
+		}
+	}
+	
 	private String[] getAllPersonalGames() {
 		
 		if(userManager.getUser() == null) {
