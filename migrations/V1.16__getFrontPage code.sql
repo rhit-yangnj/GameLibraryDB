@@ -16,3 +16,4 @@ AS
 	where u.Username = @Username
     Group by ga.[Name], ga.[Description], ga.[ReleaseDate]
 GO
+
