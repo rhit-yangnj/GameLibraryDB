@@ -16,5 +16,9 @@ public class UpdateManager {
 		this.gep.redoPersonalGames();
 		this.gep.redoStoredGameList();
 	}
+	
+	public void GameUpdate() {
+		this.ftp.UpdateView();
+	}
 
 }
