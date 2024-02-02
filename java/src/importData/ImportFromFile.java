@@ -28,8 +28,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class ImportFromFile {
 	
 	private final String URL = "jdbc:sqlserver://${dbServer};databaseName=${dbName};user=${user};password={${pass}}";
-
-	private String filePath = "C:\\Users\\yangnj\\Documents\\CSSE333\\GameLibraryDB\\java\\src\\Sample Data.xlsx";
+//C:\\Users\\linf\\git\\GameLibraryDB\\java\\src\\Sample Data.xlsx
+	private String filePath = "C:\\\\Users\\\\linf\\\\git\\\\GameLibraryDB\\\\java\\\\src\\\\Sample Data.xlsx";
 	private Connection connection = null;
 	
 	private String serverName;
