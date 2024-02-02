@@ -44,23 +44,31 @@ public class MainViewer {
 		//Create tabs
 		JTabbedPane tabs = new JTabbedPane();
 		
+		FullTablePanel tableScreen = new FullTablePanel(connectionManager, userManager);
+		
 		//Add screens as new tabs
 		RegisterPanel registerScreen = new RegisterPanel(connectionManager, userManager);
-		tabs.addTab("Register", null, registerScreen, "Register an account");
 		//Add Login screens as new tabs
 		GameEditPanel gameScreen = new GameEditPanel(connectionManager, userManager);
-		LoginPanel LoginScreen = new LoginPanel(connectionManager, userManager, gameScreen);
-		tabs.addTab("Login Here", null, LoginScreen, "Login to your account here");
-		tabs.addTab("Games", null, gameScreen, "Browse your library");
 		SearchBarPanel searchPanel = new SearchBarPanel(connectionManager, userManager);
-		tabs.addTab("Search", null, searchPanel, "Search for games"); 
 		
 		NotePanel NoteScreen = new NotePanel(connectionManager, userManager);
 		tabs.addTab("Add Note Here", null, NoteScreen, "Add game notes here");
 		
+
 		
 		ReviewPanel ReviewScreen = new ReviewPanel(connectionManager, userManager);
 		tabs.addTab("Add Review Here", null, ReviewScreen, "Add game reviews here");
+
+		UpdateManager updateManager = new UpdateManager(tableScreen, gameScreen);
+		
+		LoginPanel LoginScreen = new LoginPanel(connectionManager, userManager, updateManager);
+		tabs.addTab("Register", null, registerScreen, "Register an account");
+		tabs.addTab("Login Here", null, LoginScreen, "Login to your account here");
+		tabs.addTab("Search", null, searchPanel, "Search for games");
+		tabs.addTab("Edit Games", null, gameScreen, "Edit your library");
+		tabs.addTab("See Games", null, tableScreen, "Browse your library");
+
 		
 		frame.add(tabs);
 		
