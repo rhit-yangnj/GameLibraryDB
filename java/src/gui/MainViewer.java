@@ -52,6 +52,8 @@ public class MainViewer {
 		GameEditPanel gameScreen = new GameEditPanel(connectionManager, userManager);
 		SearchBarPanel searchPanel = new SearchBarPanel(connectionManager, userManager);
 		
+		NotePanel NoteScreen = new NotePanel(connectionManager, userManager);
+		tabs.addTab("Add Note Here", null, NoteScreen, "Add game notes here");
 		
 		UpdateManager updateManager = new UpdateManager(tableScreen, gameScreen);
 		
