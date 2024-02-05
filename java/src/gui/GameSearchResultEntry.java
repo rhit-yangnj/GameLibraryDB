@@ -1,32 +1,26 @@
 package gui;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class GameSearchResultEntry {
 	private String gameName;
 	private String description;
 	private String studioName;
-	private ArrayList<String> platformNames;
-	private ArrayList<String> genres;
+	private HashSet<String> platformNames;
+	private HashSet<String> genres;
 	private String releaseDate;
 	
 	public GameSearchResultEntry(String gameName, String description, String studioName, String platformName, String genre, String releaseDate) {
 		this.gameName = gameName;
 		this.description = description;
 		this.studioName = studioName;
-		this.platformNames = new ArrayList<String>();
+		this.platformNames = new HashSet<String>();
 		this.platformNames.add(platformName);
-		this.genres = new ArrayList<String>();
+		this.genres = new HashSet<String>();
 		this.genres.add(genre);
 		this.releaseDate = releaseDate;
-	}
-	
-	public void addPlatform(String platformName) {
-		this.platformNames.add(platformName);
-	}
-	
-	public void addGenre(String genre) {
-		this.genres.add(genre);
 	}
 
 	public String getGameName() {
@@ -41,16 +35,24 @@ public class GameSearchResultEntry {
 		return studioName;
 	}
 
-	public ArrayList<String> getPlatformNames() {
+	public HashSet<String> getPlatformNames() {
 		return platformNames;
 	}
 
-	public ArrayList<String> getGenres() {
+	public HashSet<String> getGenres() {
 		return genres;
 	}
 
 	public String getReleaseDate() {
 		return releaseDate;
+	}
+	
+	public void addPlatformName(String platformName) {
+		this.platformNames.add(platformName);
+	}
+	
+	public void addGenre(String genre) {
+		this.genres.add(genre);
 	}
 
 }
