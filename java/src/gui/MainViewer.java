@@ -15,6 +15,10 @@ public class MainViewer {
 	
 	private ConnectionManager connectionManager;
 	private UserManager userManager;
+	private JTabbedPane LoginTabs;
+	private JTabbedPane MainTabs;
+	private JFrame frame;
+	
 	
 	public MainViewer(ConnectionManager connectionManager) {
 		this.connectionManager = connectionManager;
@@ -30,7 +34,7 @@ public class MainViewer {
 		final int frameYLoc = 0;
 		
 		//Set up frame
-		JFrame frame = new JFrame();
+		this.frame = new JFrame();
 		frame.setTitle(frameTitle);
 		frame.setSize(frameWidth, frameHeight);
 		frame.setLocation(frameXLoc, frameYLoc);
@@ -42,7 +46,8 @@ public class MainViewer {
 		});
 		
 		//Create tabs
-		JTabbedPane tabs = new JTabbedPane();
+		this.LoginTabs = new JTabbedPane();
+		this.MainTabs = new JTabbedPane();
 		
 		FullTablePanel tableScreen = new FullTablePanel(connectionManager, userManager);
 		
@@ -54,23 +59,30 @@ public class MainViewer {
 		GameBrowserPanel gameBrowserPanel = new GameBrowserPanel(connectionManager, userManager);
 		
 		
-		UpdateManager updateManager = new UpdateManager(tableScreen, gameScreen, gameBrowserPanel);
+		UpdateManager updateManager = new UpdateManager(tableScreen, gameScreen, gameBrowserPanel, this);
 		
 		gameScreen.setUpdateManager(updateManager);
 		gameBrowserPanel.setUpdateManager(updateManager);
 		
 		LoginPanel LoginScreen = new LoginPanel(connectionManager, userManager, updateManager);
-		tabs.addTab("Register", null, registerScreen, "Register an account");
-		tabs.addTab("Login Here", null, LoginScreen, "Login to your account here");
-		tabs.addTab("Edit Games", null, gameScreen, "Edit your library");
-		tabs.addTab("See Games", null, tableScreen, "Browse your library");
-		tabs.addTab("Notes", null, notePanel, "Add Notes");
-		tabs.addTab("Reviews", null, reviewPanel, "Add Reviews");
-		tabs.addTab("Browse Games", null, gameBrowserPanel, "Browse Games");
 		
+		LoginTabs.addTab("Register", null, registerScreen, "Register an account");
+		LoginTabs.addTab("Login Here", null, LoginScreen, "Login to your account here");
+		MainTabs.addTab("Edit Games", null, gameScreen, "Edit your library");
+		MainTabs.addTab("See Games", null, tableScreen, "Browse your library");
+		MainTabs.addTab("Notes", null, notePanel, "Add Notes");
+		MainTabs.addTab("Reviews", null, reviewPanel, "Add Reviews");
+		MainTabs.addTab("Browse Games", null, gameBrowserPanel, "Browse Games");
 		
-		frame.add(tabs);
+		frame.add(LoginTabs);
 		
+		frame.setVisible(true);
+	}
+	
+	public void UserLoginUpdate() {
+		frame.setVisible(false);
+		frame.remove(LoginTabs);
+		frame.add(MainTabs);
 		frame.setVisible(true);
 	}
 }
