@@ -17,6 +17,7 @@ import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -26,6 +27,7 @@ public class SearchBarPanel extends JPanel {
 	private UserManager userManager;
 	private UpdateManager updateManager;
 	
+	private JLabel searchLabel;
 	private JTextField gameNameInput;
 	private JTextField studioInput;
 	private JTextField platformInput;
@@ -44,11 +46,13 @@ public class SearchBarPanel extends JPanel {
 	
 	public SearchBarPanel(ConnectionManager connectionManager) {
 		this.connectionManager = connectionManager;
+		this.searchLabel = new JLabel("Search Filters:");
 		this.gameNameInput = new JTextField(20);
 		this.studioInput = new JTextField(20);
 		this.platformInput = new JTextField(20);
 		this.genreInput = new JTextField(20);
 		this.searchUserCheckBox = new JCheckBox("Search My Library");
+		this.userManager = null;
 		gameNameInput.setText("Game Name");
 		gameNameInput.setForeground(Color.GRAY);
 		gameNameInput.addFocusListener(new FocusListener() {
@@ -126,7 +130,7 @@ public class SearchBarPanel extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (searchUserCheckBox.isSelected()) {
+				if (userManager != null) {
 					searchGames(userManager.getUser(), gameNameInput.getText(), studioInput.getText(), platformInput.getText(), genreInput.getText());
 				} else {
 					searchGames(null, gameNameInput.getText(), studioInput.getText(), platformInput.getText(), genreInput.getText());
@@ -134,7 +138,7 @@ public class SearchBarPanel extends JPanel {
 			}
 		}); 
 		
-		this.add(searchUserCheckBox);
+		this.add(searchLabel);
 		this.add(gameNameInput);
 		this.add(studioInput);
 		this.add(platformInput);
