@@ -17,6 +17,7 @@ import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -24,7 +25,9 @@ import javax.swing.JTextField;
 public class SearchBarPanel extends JPanel {
 	private ConnectionManager connectionManager;
 	private UserManager userManager;
+	private UpdateManager updateManager;
 	
+	private JLabel searchLabel;
 	private JTextField gameNameInput;
 	private JTextField studioInput;
 	private JTextField platformInput;
@@ -43,11 +46,13 @@ public class SearchBarPanel extends JPanel {
 	
 	public SearchBarPanel(ConnectionManager connectionManager) {
 		this.connectionManager = connectionManager;
+		this.searchLabel = new JLabel("Search Filters:");
 		this.gameNameInput = new JTextField(20);
 		this.studioInput = new JTextField(20);
 		this.platformInput = new JTextField(20);
 		this.genreInput = new JTextField(20);
 		this.searchUserCheckBox = new JCheckBox("Search My Library");
+		this.userManager = null;
 		gameNameInput.setText("Game Name");
 		gameNameInput.setForeground(Color.GRAY);
 		gameNameInput.addFocusListener(new FocusListener() {
@@ -125,7 +130,7 @@ public class SearchBarPanel extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (searchUserCheckBox.isSelected()) {
+				if (userManager != null) {
 					searchGames(userManager.getUser(), gameNameInput.getText(), studioInput.getText(), platformInput.getText(), genreInput.getText());
 				} else {
 					searchGames(null, gameNameInput.getText(), studioInput.getText(), platformInput.getText(), genreInput.getText());
@@ -133,13 +138,17 @@ public class SearchBarPanel extends JPanel {
 			}
 		}); 
 		
-		this.add(searchUserCheckBox);
+		this.add(searchLabel);
 		this.add(gameNameInput);
 		this.add(studioInput);
 		this.add(platformInput);
 		this.add(genreInput);
 		this.add(searchButton);
 		
+	}
+	
+	public void blankSearch() {
+		searchGames(null, null, null, null, null);
 	}
 	
 	private void searchGames(String username, String gameName, String studio, String platform, String genre) {
@@ -149,29 +158,31 @@ public class SearchBarPanel extends JPanel {
 		try {
 			stmt = connection.prepareCall("{call SearchGames(?,?,?,?,?)}");
 			stmt.setString(1, username);
-			if (!gameName.equals("Game Name")) {
+			if (gameName != null && !gameName.equals("Game Name")) {
 				stmt.setString(2, gameName);
 			} else {
 				stmt.setNull(2, Types.VARCHAR);
 			}
-			if (!studio.equals("Studio Name")) {
+			if (studio != null && !studio.equals("Studio Name")) {
 				stmt.setString(3, studio);
 			} else {
 				stmt.setNull(3, Types.VARCHAR);
 			}
-			if (!platform.equals("Platform Name")) {
+			if (platform != null && !platform.equals("Platform Name")) {
 				stmt.setString(4, platform);
 			} else {
 				stmt.setNull(4, Types.VARCHAR);
 			}
-			if (!genre.equals("Genre")) {
+			if (genre != null && !genre.equals("Genre")) {
 				stmt.setString(5, genre);
 			} else {
 				stmt.setNull(5, Types.NVARCHAR);
 			}
 			ResultSet rs = stmt.executeQuery();
 			this.mostRecentSearch = parseResults(rs);
-			System.out.println(this.mostRecentSearch);
+			if (this.updateManager != null) {
+				this.updateManager.GameBrowserUpdate();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -194,10 +205,7 @@ public class SearchBarPanel extends JPanel {
 				String platformName = rs.getString(platformNameIndex);
 				String genre = rs.getString(genreIndex);
 				String releaseDate = rs.getString(releaseDateIndex);
-				if (results.containsKey(gameName)) {
-					results.get(gameName).addGenre(gameName);
-					results.get(gameName).addPlatform(platformName);
-				} else {
+				if (!results.containsKey(gameName)) {
 					GameSearchResultEntry newEntry = new GameSearchResultEntry(gameName, 
 							description, 
 							studioName, 
@@ -205,7 +213,11 @@ public class SearchBarPanel extends JPanel {
 							genre, 
 							releaseDate);
 					results.put(gameName, newEntry);
+				} else {
+					results.get(gameName).addPlatformName(platformName);
+					results.get(gameName).addGenre(genre);
 				}
+				
 			}
 			return results;
 		} catch (SQLException ex) {
@@ -219,6 +231,10 @@ public class SearchBarPanel extends JPanel {
 	
 	public HashMap<String, GameSearchResultEntry> getMostRecentSearch() {
 		return this.mostRecentSearch;
+	}
+	
+	public void setUpdateManager(UpdateManager um) {
+		this.updateManager = um;
 	}
 	
 }

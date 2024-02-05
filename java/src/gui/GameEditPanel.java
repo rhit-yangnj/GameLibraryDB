@@ -41,6 +41,7 @@ public class GameEditPanel extends JPanel {
 	
 	private ConnectionManager connectionManager;
 	private UserManager userManager;
+	private UpdateManager updateManager;
 	
 	public GameEditPanel(ConnectionManager connectionManager, UserManager userManager) {
 		this.connectionManager = connectionManager;
@@ -56,6 +57,7 @@ public class GameEditPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (addGameToUser(GameList.getSelectedItem().toString())) {
+					updateManager.GameUpdate();
 					JOptionPane.showMessageDialog(null, "Successfully Added Game to account!");
 				}
 			}
@@ -72,6 +74,7 @@ public class GameEditPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (RemoveGameFromUser(removeGameList.getSelectedItem().toString())) {
+					updateManager.GameUpdate();
 					JOptionPane.showMessageDialog(null, "Successfully Removed Game from account!");
 				}
 			}
@@ -271,5 +274,9 @@ public class GameEditPanel extends JPanel {
 		}
 		
 		return false;
+	}
+	
+	public void setUpdateManager(UpdateManager um) {
+		this.updateManager = um;
 	}
 }

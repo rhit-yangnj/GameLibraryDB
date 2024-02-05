@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry including="**/*.java" kind="src" output="target/classes" path="java/src">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="java/src/external/commons-codec-1.15.jar"/>
+	<classpathentry kind="lib" path="java/src/external/commons-collections4-4.4.jar"/>
+	<classpathentry kind="lib" path="java/src/external/commons-compress-1.21.jar"/>
+	<classpathentry kind="lib" path="java/src/external/commons-io-2.11.0.jar"/>
+	<classpathentry kind="lib" path="java/src/external/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="java/src/external/commons-math3-3.6.1.jar"/>
+	<classpathentry kind="lib" path="java/src/external/curvesapi-1.07.jar"/>
+	<classpathentry kind="lib" path="java/src/external/jakarta.activation-2.0.1.jar"/>
+	<classpathentry kind="lib" path="java/src/external/jakarta.xml.bind-api-3.0.1.jar"/>
+	<classpathentry kind="lib" path="java/src/external/log4j-api-2.18.0.jar"/>
+	<classpathentry kind="lib" path="java/src/external/mssql-jdbc-12.4.2.jre11.jar"/>
+	<classpathentry kind="lib" path="java/src/external/poi-5.2.3.jar"/>
+	<classpathentry kind="lib" path="java/src/external/poi-examples-5.2.3.jar"/>
+	<classpathentry kind="lib" path="java/src/external/poi-excelant-5.2.3.jar"/>
+	<classpathentry kind="lib" path="java/src/external/poi-javadoc-5.2.3.jar"/>
+	<classpathentry kind="lib" path="java/src/external/poi-ooxml-5.2.3.jar"/>
+	<classpathentry kind="lib" path="java/src/external/poi-ooxml-full-5.2.3.jar"/>
+	<classpathentry kind="lib" path="java/src/external/poi-ooxml-lite-5.2.3.jar"/>
+	<classpathentry kind="lib" path="java/src/external/poi-scratchpad-5.2.3.jar"/>
+	<classpathentry kind="lib" path="java/src/external/slf4j-api-1.7.36.jar"/>
+	<classpathentry kind="lib" path="java/src/external/SparseBitSet-1.2.jar"/>
+	<classpathentry kind="lib" path="java/src/external/xmlbeans-5.1.1.jar"/>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="test" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

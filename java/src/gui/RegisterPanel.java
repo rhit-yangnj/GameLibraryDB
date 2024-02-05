@@ -1,9 +1,12 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
@@ -47,21 +50,76 @@ public class RegisterPanel extends JPanel {
 		this.connectionManager = connectionManager;
 		this.userManager = userManager;
 		usernameField.setText("Username");
+		usernameField.setForeground(Color.GRAY);
+		usernameField.addFocusListener(new FocusListener() {
+		    @Override
+		    public void focusGained(FocusEvent e) {
+		        if (usernameField.getText().equals("Username")) {
+		        	usernameField.setText("");
+		        	usernameField.setForeground(Color.BLACK);
+		        }
+		    }
+		    @Override
+		    public void focusLost(FocusEvent e) {
+		        if (usernameField.getText().isEmpty()) {
+		        	usernameField.setForeground(Color.GRAY);
+		        	usernameField.setText("Username");
+		        }
+		    }
+		    });
 		passwordField.setText("Password");
+		passwordField.setForeground(Color.GRAY);
+		passwordField.addFocusListener(new FocusListener() {
+		    @Override
+		    public void focusGained(FocusEvent e) {
+		        if (Arrays.equals(passwordField.getPassword(),"Password".toCharArray())) {
+		        	passwordField.setText("");
+		        	passwordField.setForeground(Color.BLACK);
+		        }
+		    }
+		    @Override
+		    public void focusLost(FocusEvent e) {
+		        if (passwordField.getPassword().length == 0) {
+		        	passwordField.setForeground(Color.GRAY);
+		        	passwordField.setText("Password");
+		        }
+		    }
+		    });
 		confirmPasswordField.setText("Confirm Password");
+		confirmPasswordField.setForeground(Color.GRAY);
+		confirmPasswordField.addFocusListener(new FocusListener() {
+		    @Override
+		    public void focusGained(FocusEvent e) {
+		        if (Arrays.equals(confirmPasswordField.getPassword(),"Confirm Password".toCharArray())) {
+		        	confirmPasswordField.setText("");
+		        	confirmPasswordField.setForeground(Color.BLACK);
+		        }
+		    }
+		    @Override
+		    public void focusLost(FocusEvent e) {
+		        if (confirmPasswordField.getPassword().length == 0) {
+		        	confirmPasswordField.setForeground(Color.GRAY);
+		        	confirmPasswordField.setText("Confirm Password");
+		        }
+		    }
+		    });
 		submitButton.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (!Arrays.equals(passwordField.getPassword(), confirmPasswordField.getPassword())) {
-					infoLabel.setText("Passwords do not match");
+					JOptionPane.showMessageDialog(null,
+							"Passwords do not match.");
 				} else if (passwordField.getPassword().equals("")) {
-					infoLabel.setText("Password cannot be empty");
+					JOptionPane.showMessageDialog(null,
+							"Password cannot be empty");
 				} else if (usernameField.getText().equals("")) {
-					infoLabel.setText("Username cannot be empty");
+					JOptionPane.showMessageDialog(null,
+							"Username cannot be empty");
 				} else {
 					if (register(usernameField.getText(), passwordField.getPassword())) {
-						infoLabel.setText("Successfully registered account!");
+						JOptionPane.showMessageDialog(null,
+								"Successfully registered account!");
 					}
 				}
 			}
