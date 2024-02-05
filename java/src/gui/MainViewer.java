@@ -53,7 +53,7 @@ public class MainViewer {
 		SearchBarPanel searchPanel = new SearchBarPanel(connectionManager, userManager);
 		NotePanel notePanel = new NotePanel(connectionManager, userManager);
 		ReviewPanel reviewPanel = new ReviewPanel(connectionManager, userManager);
-		
+		SingleGameBrowsingPanel singleGameBrowsingScreen = new SingleGameBrowsingPanel(connectionManager, userManager);
 		
 		UpdateManager updateManager = new UpdateManager(tableScreen, gameScreen);
 		
@@ -65,6 +65,7 @@ public class MainViewer {
 		tabs.addTab("See Games", null, tableScreen, "Browse your library");
 		tabs.addTab("Notes", null, notePanel, "Add Notes");
 		tabs.addTab("Reviews", null, reviewPanel, "Add Reviews");
+		tabs.addTab("SingleGameBrowse", null, singleGameBrowsingScreen , "Browse single game");
 		
 		
 		frame.add(tabs);
