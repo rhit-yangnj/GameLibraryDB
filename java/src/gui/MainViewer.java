@@ -59,7 +59,7 @@ public class MainViewer {
 		GameBrowserPanel gameBrowserPanel = new GameBrowserPanel(connectionManager, userManager);
 		
 		
-		UpdateManager updateManager = new UpdateManager(tableScreen, gameScreen, gameBrowserPanel, this);
+		UpdateManager updateManager = new UpdateManager(tableScreen, gameScreen, gameBrowserPanel, this, notePanel, reviewPanel);
 		
 		gameScreen.setUpdateManager(updateManager);
 		gameBrowserPanel.setUpdateManager(updateManager);
@@ -81,6 +81,7 @@ public class MainViewer {
 	
 	public void UserLoginUpdate() {
 		frame.setVisible(false);
+		frame.setTitle("Game Library");
 		frame.remove(LoginTabs);
 		frame.add(MainTabs);
 		frame.setVisible(true);

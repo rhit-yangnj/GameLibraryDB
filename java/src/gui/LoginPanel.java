@@ -55,7 +55,6 @@ public class LoginPanel extends JPanel {
 				String givenUsername = usernameField.getText();
 				if (login(givenUsername, passwordField.getPassword())) {
 					userManager.setUser(givenUsername);
-					System.out.println("HitREDO");
 					updateManager.UserUpdate();
 					infoLabel.setText("Login Successful!");
 				}
