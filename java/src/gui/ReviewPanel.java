@@ -8,7 +8,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
+import java.sql.Types; 
 import java.util.ArrayList;
 
 public class ReviewPanel extends JPanel {

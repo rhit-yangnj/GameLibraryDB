@@ -56,6 +56,7 @@ public class MainViewer {
 		GameEditPanel gameScreen = new GameEditPanel(connectionManager, userManager);
 		NotePanel notePanel = new NotePanel(connectionManager, userManager);
 		ReviewPanel reviewPanel = new ReviewPanel(connectionManager, userManager);
+		SingleGameBrowsingPanel singleGameBrowsingScreen = new SingleGameBrowsingPanel(connectionManager, userManager);
 		GameBrowserPanel gameBrowserPanel = new GameBrowserPanel(connectionManager, userManager);
 		
 		
@@ -65,6 +66,7 @@ public class MainViewer {
 		gameBrowserPanel.setUpdateManager(updateManager);
 		
 		LoginPanel LoginScreen = new LoginPanel(connectionManager, userManager, updateManager);
+
 		
 		LoginTabs.addTab("Register", null, registerScreen, "Register an account");
 		LoginTabs.addTab("Login Here", null, LoginScreen, "Login to your account here");
@@ -73,6 +75,7 @@ public class MainViewer {
 		MainTabs.addTab("Notes", null, notePanel, "Add Notes");
 		MainTabs.addTab("Reviews", null, reviewPanel, "Add Reviews");
 		MainTabs.addTab("Browse Games", null, gameBrowserPanel, "Browse Games");
+    MainTabs.addTab("SingleGameBrowse", null, singleGameBrowsingScreen , "Browse single game");
 		
 		frame.add(LoginTabs);
 		
