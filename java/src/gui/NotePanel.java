@@ -24,7 +24,6 @@ public class NotePanel extends JPanel {
 	private JPanel actionPanel = new JPanel();
 	private JTextField noteInput = new JTextField(20);
 	private JTextField noteOutput = new JTextField(20);
-	private JButton refreshGameListButton = new JButton("RefreshGameList");
 	private JButton addNoteButton = new JButton("Add");
 	private JButton deleteNoteButton = new JButton("Delete");
 	private JButton updateNoteButton = new JButton("Update");
@@ -40,7 +39,6 @@ public class NotePanel extends JPanel {
 		gamePanel.add(gameList);
 		gamePanel.add(chooseButton);
 		gamePanel.add(infoLabel);
-		gamePanel.add(refreshGameListButton);
 		add(gamePanel);
 
 		actionPanel.add(addLabel);
@@ -51,15 +49,6 @@ public class NotePanel extends JPanel {
 		actionPanel.add(deleteNoteButton);
 		actionPanel.add(updateNoteButton);
 		add(actionPanel);
-
-		refreshGameListButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				redoPersonalGames();
-			}
-		}
-
-		);
 		
 		chooseButton.addActionListener(new ActionListener() {
             @Override
@@ -71,7 +60,6 @@ public class NotePanel extends JPanel {
                 	JOptionPane.showMessageDialog(null, "This game does not have a note yet");
                 }
                 else {
-                System.out.println("chosen noteID: "+ currentGameNoteID);
                 noteOutput.setText(readNoteFromDatabase(currentGameNoteID));}
             }
         });
@@ -115,11 +103,7 @@ public class NotePanel extends JPanel {
 		this.gameList.removeAllItems();
 		String[] currentList = getAllPersonalGames();
 
-		System.out.println("CurrentGameWork, list incoming");
-		System.out.println(currentList.toString());
-
 		for (int i = 0; i < currentList.length; i++) {
-			System.out.println(currentList[i]);
 			this.gameList.addItem(currentList[i]);
 		}
 	}

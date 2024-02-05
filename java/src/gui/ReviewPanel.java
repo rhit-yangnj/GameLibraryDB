@@ -26,7 +26,6 @@ public class ReviewPanel extends JPanel {
 	private JPanel actionPanel = new JPanel();
 	private JTextField reviewInput = new JTextField(20);
 	private JTextField reviewOutput = new JTextField(20);
-	private JButton refreshGameListButton = new JButton("RefreshGameList");
 	private JButton addReviewButton = new JButton("Add");
 	private JButton deleteReviewButton = new JButton("Delete");
 	private JButton updateReviewButton = new JButton("Update");
@@ -45,7 +44,6 @@ public class ReviewPanel extends JPanel {
 		gamePanel.add(gameList);
 		gamePanel.add(chooseButton);
 		gamePanel.add(infoLabel);
-		gamePanel.add(refreshGameListButton);
 		add(gamePanel);
 
 		actionPanel.add(addLabel);
@@ -63,14 +61,6 @@ public class ReviewPanel extends JPanel {
 		starPanel.add(starOutputLabel);
 		starPanel.add(numberOfStarOutput);
 		add(starPanel);
-		refreshGameListButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				redoPersonalGames();
-			}
-		}
-
-		);
 		
 		chooseButton.addActionListener(new ActionListener() {
             @Override
@@ -82,7 +72,6 @@ public class ReviewPanel extends JPanel {
                 	JOptionPane.showMessageDialog(null, "This game does not have a review yet");
                 }
                 else {
-                System.out.println("chosen reviewID: "+ currentGameReviewID);
                 reviewOutput.setText(readReviewFromDatabase(currentGameReviewID));
                 numberOfStarOutput.setText(readReviewStarFromDatabase(currentGameReviewID));}
             }
@@ -128,11 +117,7 @@ public class ReviewPanel extends JPanel {
 		this.gameList.removeAllItems();
 		String[] currentList = getAllPersonalGames();
 
-		System.out.println("CurrentGameWork, list incoming");
-		System.out.println(currentList.toString());
-
 		for (int i = 0; i < currentList.length; i++) {
-			System.out.println(currentList[i]);
 			this.gameList.addItem(currentList[i]);
 		}
 	}

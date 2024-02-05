@@ -196,7 +196,7 @@ public class SearchBarPanel extends JPanel {
 			int descriptionIndex = rs.findColumn("Description");
 			int studioNameIndex = rs.findColumn("StudioName");
 			int platformNameIndex = rs.findColumn("PlatformName");
-			int genreIndex = rs.findColumn("Genre");
+			int genreIndex = rs.findColumn("GenreName");
 			int releaseDateIndex = rs.findColumn("ReleaseDate");
 			while (rs.next()) {
 				String gameName = rs.getString(gameNameIndex);
