@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,14 +28,14 @@ public class SearchBarPanel extends JPanel {
 	private UserManager userManager;
 	private UpdateManager updateManager;
 	
-	private JLabel searchLabel;
-	private JTextField gameNameInput;
-	private JTextField studioInput;
-	private JTextField platformInput;
-	private JTextField genreInput;
-	private JButton searchButton;
-	private JCheckBox searchUserCheckBox;
-	private boolean searchUserLibrary;
+	private JLabel searchLabel = new JLabel("Search Filters:");
+	private JTextField gameNameInput = new JTextField(20);
+	private JTextField studioInput = new JTextField(20);
+	private JTextField platformInput = new JTextField(20);
+	private JTextField genreInput = new JTextField(20);
+	private JButton searchButton = new JButton("Search");
+//	private JCheckBox searchUserCheckBox;
+//	private boolean searchUserLibrary;
 	
 	
 	private HashMap<String, GameSearchResultEntry> mostRecentSearch;
@@ -46,12 +47,12 @@ public class SearchBarPanel extends JPanel {
 	
 	public SearchBarPanel(ConnectionManager connectionManager) {
 		this.connectionManager = connectionManager;
-		this.searchLabel = new JLabel("Search Filters:");
-		this.gameNameInput = new JTextField(20);
-		this.studioInput = new JTextField(20);
-		this.platformInput = new JTextField(20);
-		this.genreInput = new JTextField(20);
-		this.searchUserCheckBox = new JCheckBox("Search My Library");
+//		this.searchLabel = new JLabel("Search Filters:");
+//		this.gameNameInput = new JTextField(20);
+//		this.studioInput = new JTextField(20);
+//		this.platformInput = new JTextField(20);
+//		this.genreInput = new JTextField(20);
+//		this.searchUserCheckBox = new JCheckBox("Search My Library");
 		this.userManager = null;
 		gameNameInput.setText("Game Name");
 		gameNameInput.setForeground(Color.GRAY);
@@ -125,7 +126,7 @@ public class SearchBarPanel extends JPanel {
 		        }
 		    }
 		    });
-		this.searchButton = new JButton("Search");
+//		this.searchButton = new JButton("Search");
 		this.searchButton.addActionListener(new ActionListener() {
 			
 			@Override
