@@ -66,8 +66,6 @@ public class MainViewer {
 		gameBrowserPanel.setUpdateManager(updateManager);
 		
 		LoginPanel LoginScreen = new LoginPanel(connectionManager, userManager, updateManager);
-
-		
 		LoginTabs.addTab("Register", null, registerScreen, "Register an account");
 		LoginTabs.addTab("Login Here", null, LoginScreen, "Login to your account here");
 		MainTabs.addTab("Edit Games", null, gameScreen, "Edit your library");
@@ -75,8 +73,8 @@ public class MainViewer {
 		MainTabs.addTab("Notes", null, notePanel, "Add Notes");
 		MainTabs.addTab("Reviews", null, reviewPanel, "Add Reviews");
 		MainTabs.addTab("Browse Games", null, gameBrowserPanel, "Browse Games");
-    MainTabs.addTab("SingleGameBrowse", null, singleGameBrowsingScreen , "Browse single game");
-		
+		MainTabs.addTab("SingleGameBrowse", null, singleGameBrowsingScreen , "Browse single game");
+
 		frame.add(LoginTabs);
 		
 		frame.setVisible(true);
