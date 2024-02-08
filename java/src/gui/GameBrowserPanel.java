@@ -44,21 +44,27 @@ public class GameBrowserPanel extends JSplitPane implements MouseListener{
 	private SearchBarPanel searchBar;
 	private JSplitPane searchSplitPane;
 	private JSplitPane selectionSplitPane;
+	private boolean isPersonalGames;
 	
 	private int previousRow = -1;
 	
 	String[] columnNames = {"Name", "Release Date", "Description", "Genres", "Platforms", "Studio"};
 	
-	public GameBrowserPanel(ConnectionManager connectionManager, UserManager userManager) {
+	public GameBrowserPanel(ConnectionManager connectionManager, UserManager userManager, boolean isPersonalGames) {
+		this.isPersonalGames = isPersonalGames;
 		this.selectionSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
                 table, selectedGamePanel);
 		this.searchSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
                 searchBar, selectionSplitPane);
 		
-		this.searchBar = new SearchBarPanel(connectionManager);
+		if(!isPersonalGames) this.searchBar = new SearchBarPanel(connectionManager);
+		else this.searchBar = new SearchBarPanel(connectionManager, userManager);
+		
+		
 		this.connectionManager = connectionManager;
 		this.userManager = userManager;	
-		this.UpdateView();
+		if(!isPersonalGames)
+			this.UpdateView();
 		
 //		this.table = new JTable(BuildTable(), columnNames);
 //		this.scrollPane = new JScrollPane(table);
@@ -92,7 +98,9 @@ public class GameBrowserPanel extends JSplitPane implements MouseListener{
 		this.scrollPane = new JScrollPane(table);
 //		this.scrollPane.setPreferredSize(new Dimension(720, 480));
 		table.setFillsViewportHeight(true);
-		this.selectedGamePanel = new SelectedGamePanel(userManager, connectionManager, updateManager);
+		if(!isPersonalGames) this.selectedGamePanel = new SelectedGamePanel(userManager, connectionManager, updateManager, this.isPersonalGames);
+		else this.selectedGamePanel = new SelectedGamePanel(userManager, connectionManager, updateManager, this.isPersonalGames, this.searchBar);
+		
 		
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -130,7 +138,9 @@ public class GameBrowserPanel extends JSplitPane implements MouseListener{
 			this.searchBar.blankSearch();
 		}
 						
+		System.out.println("---");
 		for (String key : this.searchBar.getMostRecentSearch().keySet()) {
+			System.out.println(key);
 			GameSearchResultEntry entry = this.searchBar.getMostRecentSearch().get(key);
 			String CurrentGame = entry.getGameName();
 			
@@ -219,4 +229,5 @@ public class GameBrowserPanel extends JSplitPane implements MouseListener{
 		// TODO Auto-generated method stub
 		
 	}
+
 }

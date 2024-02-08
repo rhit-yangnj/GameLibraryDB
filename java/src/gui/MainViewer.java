@@ -49,27 +49,27 @@ public class MainViewer {
 		this.LoginTabs = new JTabbedPane();
 		this.MainTabs = new JTabbedPane();
 		
-		FullTablePanel tableScreen = new FullTablePanel(connectionManager, userManager);
-		
 		//Add screens as new tabs
 		RegisterPanel registerScreen = new RegisterPanel(connectionManager, userManager);
 		GameEditPanel gameScreen = new GameEditPanel(connectionManager, userManager);
 		NotePanel notePanel = new NotePanel(connectionManager, userManager);
 		ReviewPanel reviewPanel = new ReviewPanel(connectionManager, userManager);
 		SingleGameBrowsingPanel singleGameBrowsingScreen = new SingleGameBrowsingPanel(connectionManager, userManager);
-		GameBrowserPanel gameBrowserPanel = new GameBrowserPanel(connectionManager, userManager);
+		GameBrowserPanel gameBrowserPanel = new GameBrowserPanel(connectionManager, userManager, false);
+		GameBrowserPanel personalGameBrowserPanel = new GameBrowserPanel(connectionManager, userManager, true);
 		
 		
-		UpdateManager updateManager = new UpdateManager(tableScreen, gameScreen, gameBrowserPanel, this, notePanel, reviewPanel);
+		UpdateManager updateManager = new UpdateManager(gameScreen, gameBrowserPanel, this, notePanel, reviewPanel, personalGameBrowserPanel);
 		
 		gameScreen.setUpdateManager(updateManager);
 		gameBrowserPanel.setUpdateManager(updateManager);
+		personalGameBrowserPanel.setUpdateManager(updateManager);
 		
 		LoginPanel LoginScreen = new LoginPanel(connectionManager, userManager, updateManager);
 		LoginTabs.addTab("Register", null, registerScreen, "Register an account");
 		LoginTabs.addTab("Login Here", null, LoginScreen, "Login to your account here");
 		MainTabs.addTab("Edit Games", null, gameScreen, "Edit your library");
-		MainTabs.addTab("See Games", null, tableScreen, "Browse your library");
+		MainTabs.addTab("See My Games", null, personalGameBrowserPanel, "Browse your library");
 		MainTabs.addTab("Notes", null, notePanel, "Add Notes");
 		MainTabs.addTab("Reviews", null, reviewPanel, "Add Reviews");
 		MainTabs.addTab("Browse Games", null, gameBrowserPanel, "Browse Games");

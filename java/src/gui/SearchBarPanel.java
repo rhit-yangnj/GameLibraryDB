@@ -149,7 +149,13 @@ public class SearchBarPanel extends JPanel {
 	}
 	
 	public void blankSearch() {
-		searchGames(null, null, null, null, null);
+		if (userManager != null) {
+			if(userManager.getUser() != null) {
+				searchGames(userManager.getUser(), null, null, null, null);
+			}
+		} else {
+			searchGames(null, null, null, null, null);
+		}
 	}
 	
 	private void searchGames(String username, String gameName, String studio, String platform, String genre) {
@@ -206,19 +212,13 @@ public class SearchBarPanel extends JPanel {
 				String platformName = rs.getString(platformNameIndex);
 				String genre = rs.getString(genreIndex);
 				String releaseDate = rs.getString(releaseDateIndex);
-				if (!results.containsKey(gameName)) {
-					GameSearchResultEntry newEntry = new GameSearchResultEntry(gameName, 
-							description, 
-							studioName, 
-							platformName, 
-							genre, 
-							releaseDate);
-					results.put(gameName, newEntry);
-				} else {
-					results.get(gameName).addPlatformName(platformName);
-					results.get(gameName).addGenre(genre);
-				}
-				
+				GameSearchResultEntry newEntry = new GameSearchResultEntry(gameName, 
+						description, 
+						studioName, 
+						platformName, 
+						genre, 
+						releaseDate);
+				results.put(gameName, newEntry);				
 			}
 			return results;
 		} catch (SQLException ex) {
@@ -236,6 +236,11 @@ public class SearchBarPanel extends JPanel {
 	
 	public void setUpdateManager(UpdateManager um) {
 		this.updateManager = um;
+	}
+	
+	public void removeRowFromSearch(String gameName) {
+		System.out.println("Removing game: " + gameName);
+		this.mostRecentSearch.remove(gameName);
 	}
 	
 }
