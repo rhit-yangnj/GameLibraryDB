@@ -68,7 +68,6 @@ public class MainViewer {
 		LoginPanel LoginScreen = new LoginPanel(connectionManager, userManager, updateManager);
 		LoginTabs.addTab("Login Here", null, LoginScreen, "Login to your account");
 		LoginTabs.addTab("Register", null, registerScreen, "Register an account");
-		MainTabs.addTab("Edit Games", null, gameScreen, "Edit your library");
 		MainTabs.addTab("See My Games", null, personalGameBrowserPanel, "Browse your library");
 		MainTabs.addTab("Notes", null, notePanel, "Add Notes");
 		MainTabs.addTab("Reviews", null, reviewPanel, "Add Reviews");
