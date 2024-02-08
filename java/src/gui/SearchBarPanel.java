@@ -34,9 +34,8 @@ public class SearchBarPanel extends JPanel {
 	private JTextField platformInput = new JTextField(20);
 	private JTextField genreInput = new JTextField(20);
 	private JButton searchButton = new JButton("Search");
-//	private JCheckBox searchUserCheckBox;
-//	private boolean searchUserLibrary;
 	
+	private String[] previousSearchArray = {null, null, null, null};
 	
 	private HashMap<String, GameSearchResultEntry> mostRecentSearch;
 	
@@ -47,12 +46,6 @@ public class SearchBarPanel extends JPanel {
 	
 	public SearchBarPanel(ConnectionManager connectionManager) {
 		this.connectionManager = connectionManager;
-//		this.searchLabel = new JLabel("Search Filters:");
-//		this.gameNameInput = new JTextField(20);
-//		this.studioInput = new JTextField(20);
-//		this.platformInput = new JTextField(20);
-//		this.genreInput = new JTextField(20);
-//		this.searchUserCheckBox = new JCheckBox("Search My Library");
 		this.userManager = null;
 		gameNameInput.setText("Game Name");
 		gameNameInput.setForeground(Color.GRAY);
@@ -126,16 +119,14 @@ public class SearchBarPanel extends JPanel {
 		        }
 		    }
 		    });
-//		this.searchButton = new JButton("Search");
+		
 		this.searchButton.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (userManager != null) {
-					searchGames(userManager.getUser(), gameNameInput.getText(), studioInput.getText(), platformInput.getText(), genreInput.getText());
-				} else {
-					searchGames(null, gameNameInput.getText(), studioInput.getText(), platformInput.getText(), genreInput.getText());
-				}
+				String[] searchArray = {gameNameInput.getText(), studioInput.getText(), platformInput.getText(), genreInput.getText()};
+				previousSearchArray = searchArray;
+				redoSearch();
 			}
 		}); 
 		
@@ -149,6 +140,8 @@ public class SearchBarPanel extends JPanel {
 	}
 	
 	public void blankSearch() {
+		String[] searchArray = {null, null, null, null};
+		previousSearchArray = searchArray;
 		if (userManager != null) {
 			if(userManager.getUser() != null) {
 				searchGames(userManager.getUser(), null, null, null, null);
@@ -241,6 +234,14 @@ public class SearchBarPanel extends JPanel {
 	public void removeRowFromSearch(String gameName) {
 		System.out.println("Removing game: " + gameName);
 		this.mostRecentSearch.remove(gameName);
+	}
+
+	public void redoSearch() {
+		if (userManager != null) {
+			searchGames(userManager.getUser(), previousSearchArray[0], previousSearchArray[1], previousSearchArray[2], previousSearchArray[3]);
+		} else {
+			searchGames(null, previousSearchArray[0], previousSearchArray[1], previousSearchArray[2], previousSearchArray[3]);
+		}
 	}
 	
 }

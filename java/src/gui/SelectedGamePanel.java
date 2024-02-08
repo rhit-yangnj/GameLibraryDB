@@ -21,7 +21,6 @@ public class SelectedGamePanel extends JPanel {
 	private UserManager userManager;
 	private ConnectionManager connectionManager;
 	private UpdateManager updateManager;
-	private SearchBarPanel searchBarPanel;
 	
 	private JScrollPane scrollPane;
 	private JTextArea gameNameTextArea;
@@ -33,11 +32,6 @@ public class SelectedGamePanel extends JPanel {
 	private boolean isPersonalGames;
 	
 	private String selectedGameName;
-	
-	public SelectedGamePanel(UserManager userManager, ConnectionManager connectionManager, UpdateManager updateManager, boolean isPersonalGames, SearchBarPanel searchBarPanel) {
-		this(userManager, connectionManager, updateManager, isPersonalGames);
-		this.searchBarPanel = searchBarPanel;
-	}
 	
 	public SelectedGamePanel(UserManager userManager, ConnectionManager connectionManager, UpdateManager updateManager, boolean isPersonalGames) {
 		this.isPersonalGames = isPersonalGames;
@@ -64,6 +58,7 @@ public class SelectedGamePanel extends JPanel {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					if (addSelectedGameToUser()) {
+						updateManager.redoSearch();
 						updateManager.GameUpdate();
 						updateManager.GameBrowserUpdate();
 						JOptionPane.showMessageDialog(null, "Successfully Added Game to account!");
@@ -78,9 +73,7 @@ public class SelectedGamePanel extends JPanel {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					if (removeSelectedGameFromUser()) {
-						if (searchBarPanel != null) {	
-							searchBarPanel.removeRowFromSearch(selectedGameName);
-						}
+						updateManager.redoSearch();
 						updateManager.GameUpdate();
 						updateManager.GameBrowserUpdate();
 						JOptionPane.showMessageDialog(null, "Successfully Removed Game from account!");

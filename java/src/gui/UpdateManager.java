@@ -40,4 +40,9 @@ public class UpdateManager {
 		this.pgbp.UpdateView();
 	}
 
+	public void redoSearch() {
+		this.gbp.redoSearch();
+		this.pgbp.redoSearch();
+	}
+
 }

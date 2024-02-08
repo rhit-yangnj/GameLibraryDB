@@ -33,7 +33,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
-public class GameBrowserPanel extends JSplitPane implements MouseListener{
+public class GameBrowserPanel extends JSplitPane{
 	private ConnectionManager connectionManager;
 	private UserManager userManager;
 	private UpdateManager updateManager;
@@ -65,31 +65,6 @@ public class GameBrowserPanel extends JSplitPane implements MouseListener{
 		this.userManager = userManager;	
 		if(!isPersonalGames)
 			this.UpdateView();
-		
-//		this.table = new JTable(BuildTable(), columnNames);
-//		this.scrollPane = new JScrollPane(table);
-//		this.scrollPane.setPreferredSize(new Dimension(480, 640));
-//		this.table.setFillsViewportHeight(true);
-
-		
-//		this.add(searchBar, c);
-//		this.add(scrollPane, c);
-//		this.add(selectedGamePanel, c);
-//		this.add(searchSplitPane);
-//		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-//			
-//			@Override
-//			public void valueChanged(ListSelectionEvent e) {
-//				int rowNum = e.getFirstIndex();
-//				String gameName = (String) table.getValueAt(rowNum, 0);
-//				String description = (String) table.getValueAt(rowNum, 1);
-//				String studio = (String) table.getValueAt(rowNum, 2);
-//				String platforms = (String) table.getValueAt(rowNum, 3);
-//				String genres = (String) table.getValueAt(rowNum, 4);
-//				selectedGamePanel.updateTextAreas(gameName, description, studio, platforms, genres);
-//			}
-//		});
 	}
 
 	public void UpdateView() {
@@ -99,7 +74,7 @@ public class GameBrowserPanel extends JSplitPane implements MouseListener{
 //		this.scrollPane.setPreferredSize(new Dimension(720, 480));
 		table.setFillsViewportHeight(true);
 		if(!isPersonalGames) this.selectedGamePanel = new SelectedGamePanel(userManager, connectionManager, updateManager, this.isPersonalGames);
-		else this.selectedGamePanel = new SelectedGamePanel(userManager, connectionManager, updateManager, this.isPersonalGames, this.searchBar);
+		else this.selectedGamePanel = new SelectedGamePanel(userManager, connectionManager, updateManager, this.isPersonalGames);
 		
 		
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -119,11 +94,6 @@ public class GameBrowserPanel extends JSplitPane implements MouseListener{
 		
 		this.selectionSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
                 scrollPane, selectedGamePanel);
-//		this.searchSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
-//                searchBar, new RegisterPanel(connectionManager, userManager));
-//		
-//		searchSplitPane.setLeftComponent(scrollPane);
-//		this.add(searchSplitPane);
 		this.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		this.setTopComponent(searchBar);
 		this.setBottomComponent(selectionSplitPane);
@@ -191,43 +161,9 @@ public class GameBrowserPanel extends JSplitPane implements MouseListener{
 		this.updateManager = um;
 		this.searchBar.setUpdateManager(um);
 	}	
-	
-	private String[] getRow(int rowNum) {
-		String[] row = new String[6];
-		for (int i = 0; i < 6; i++) {
-			row[i] = (String) table.getValueAt(rowNum, i);
-		}
-		return row;
-	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void redoSearch() {
+		this.searchBar.redoSearch();
 	}
 
 }
