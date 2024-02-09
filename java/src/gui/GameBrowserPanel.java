@@ -39,7 +39,7 @@ public class GameBrowserPanel extends JSplitPane{
 	private UpdateManager updateManager;
 	
 	private JScrollPane scrollPane;
-	private SelectedGamePanel selectedGamePanel;
+	private GameSelectionPanel selectedGamePanel;
 	private JTable table;
 	private SearchBarPanel searchBar;
 	private JSplitPane searchSplitPane;
@@ -73,8 +73,8 @@ public class GameBrowserPanel extends JSplitPane{
 		this.scrollPane = new JScrollPane(table);
 //		this.scrollPane.setPreferredSize(new Dimension(720, 480));
 		table.setFillsViewportHeight(true);
-		if(!isPersonalGames) this.selectedGamePanel = new SelectedGamePanel(userManager, connectionManager, updateManager, this.isPersonalGames);
-		else this.selectedGamePanel = new SelectedGamePanel(userManager, connectionManager, updateManager, this.isPersonalGames);
+		if(!isPersonalGames) this.selectedGamePanel = new FullGameSelectionPanel(userManager, connectionManager, updateManager);
+		else this.selectedGamePanel = new PersonalGameSelectionPanel(userManager, connectionManager, updateManager);
 		
 		
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
