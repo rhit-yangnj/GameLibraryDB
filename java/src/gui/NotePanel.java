@@ -15,9 +15,9 @@ public class NotePanel extends JPanel {
 	private ConnectionManager connectionManager;
 	private UserManager userManager;
 	private JPanel gamePanel = new JPanel();
-	private JComboBox<String> gameList = new JComboBox<>();
-	private JButton chooseButton = new JButton("Choose");
-	private JLabel infoLabel = new JLabel("Pick a game to add notes");
+//	private JComboBox<String> gameList = new JComboBox<>();
+//	private JButton chooseButton = new JButton("Choose");
+	private JLabel infoLabel;
 	private JLabel addLabel = new JLabel("Add the note using this textbox on the left.");
 	private JLabel noteLabel = new JLabel("Note of this game is on the textbox on the right");
 
@@ -29,15 +29,17 @@ public class NotePanel extends JPanel {
 	private JButton updateNoteButton = new JButton("Update");
 	private String selectedGame= "";
 	private int currentGameNoteID;
-	public NotePanel(ConnectionManager connectionManager, UserManager userManager) {
+	public NotePanel(ConnectionManager connectionManager, UserManager userManager, String gameName) {
 		this.connectionManager = connectionManager;
 		this.userManager = userManager;
+		this.selectedGame = gameName;
+		this.infoLabel = new JLabel("Current Game: " + gameName);
 
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-		gameList.setEditable(true);
-		gamePanel.add(gameList);
-		gamePanel.add(chooseButton);
+//		gameList.setEditable(true);
+//		gamePanel.add(gameList);
+//		gamePanel.add(chooseButton);
 		gamePanel.add(infoLabel);
 		add(gamePanel);
 
@@ -50,19 +52,25 @@ public class NotePanel extends JPanel {
 		actionPanel.add(updateNoteButton);
 		add(actionPanel);
 		
-		chooseButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                selectedGame = (String) gameList.getSelectedItem(); // Store the selected game
-                JOptionPane.showMessageDialog(null, "Selected game: " + selectedGame);
-                currentGameNoteID = chooseGameGetNoteID();
-                if(currentGameNoteID==-1) {
-                	JOptionPane.showMessageDialog(null, "This game does not have a note yet");
-                }
-                else {
-                noteOutput.setText(readNoteFromDatabase(currentGameNoteID));}
-            }
-        });
+//		chooseButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                selectedGame = (String) gameList.getSelectedItem(); // Store the selected game
+//                JOptionPane.showMessageDialog(null, "Selected game: " + selectedGame);
+//                currentGameNoteID = chooseGameGetNoteID();
+//                if(currentGameNoteID==-1) {
+//                	JOptionPane.showMessageDialog(null, "This game does not have a note yet");
+//                } else {
+//                	noteOutput.setText(readNoteFromDatabase(currentGameNoteID));}
+//            	}
+//        });
+		
+		currentGameNoteID = chooseGameGetNoteID();
+        if(currentGameNoteID==-1) {
+        	JOptionPane.showMessageDialog(null, "This game does not have a note yet");
+        } else {
+        	noteOutput.setText(readNoteFromDatabase(currentGameNoteID));
+    	}
     
 
 		addNoteButton.addActionListener(new ActionListener() {
@@ -96,17 +104,17 @@ public class NotePanel extends JPanel {
 		});
 
 
-		redoPersonalGames();
+//		redoPersonalGames();
 	}
 
-	public void redoPersonalGames() {
-		this.gameList.removeAllItems();
-		String[] currentList = getAllPersonalGames();
-
-		for (int i = 0; i < currentList.length; i++) {
-			this.gameList.addItem(currentList[i]);
-		}
-	}
+//	public void redoPersonalGames() {
+//		this.gameList.removeAllItems();
+//		String[] currentList = getAllPersonalGames();
+//
+//		for (int i = 0; i < currentList.length; i++) {
+//			this.gameList.addItem(currentList[i]);
+//		}
+//	}
 
 	private String[] getAllPersonalGames() {
 
