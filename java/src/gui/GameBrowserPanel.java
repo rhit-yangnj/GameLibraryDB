@@ -108,9 +108,7 @@ public class GameBrowserPanel extends JSplitPane{
 			this.searchBar.blankSearch();
 		}
 						
-		System.out.println("---");
 		for (String key : this.searchBar.getMostRecentSearch().keySet()) {
-			System.out.println(key);
 			GameSearchResultEntry entry = this.searchBar.getMostRecentSearch().get(key);
 			String CurrentGame = entry.getGameName();
 			

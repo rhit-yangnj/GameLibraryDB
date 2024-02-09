@@ -131,7 +131,10 @@ public class SelectedGamePanel extends JPanel {
 			returnCode = stmt.getInt(1);
 			System.out.println(returnCode);
 			
-			if (returnCode == 1 || returnCode == 2) {
+			if (returnCode == 5) {
+				JOptionPane.showMessageDialog(null, "You already own this game.");
+				return false;
+			} else if (returnCode == 1 || returnCode == 2) {
 				JOptionPane.showMessageDialog(null, "Game is null or nonexistant, please select a game");
 				return false;
 			} else if (returnCode == 3 || returnCode == 4) {
@@ -147,14 +150,17 @@ public class SelectedGamePanel extends JPanel {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(returnCode);
-			if (returnCode == 3 || returnCode == 4) {
+			if (returnCode == 5) {
+				JOptionPane.showMessageDialog(null, "You already own this game.");
+				return false;
+			} else if (returnCode == 3 || returnCode == 4) {
 				JOptionPane.showMessageDialog(null, "Username is null or nonexistant, please sign in.");
 				return false;
 			} else if (returnCode == 1 || returnCode == 2) {
 				JOptionPane.showMessageDialog(null, "Game is null or nonexistant, please select a game");
 				return false;
 			} else if (returnCode != 0) {
-				JOptionPane.showMessageDialog(null, "An error occured while Adding this game.");
+				JOptionPane.showMessageDialog(null, "An error occured while adding this game.");
 				return false;
 			}
 		}
