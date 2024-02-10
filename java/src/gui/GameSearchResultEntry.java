@@ -11,8 +11,9 @@ public class GameSearchResultEntry {
 	private HashSet<String> platformNames;
 	private HashSet<String> genres;
 	private String releaseDate;
+	private String averageScore;
 	
-	public GameSearchResultEntry(String gameName, String description, String studioName, String platformName, String genre, String releaseDate) {
+	public GameSearchResultEntry(String gameName, String description, String studioName, String platformName, String genre, String releaseDate, String averageScore) {
 		this.gameName = gameName;
 		this.description = description;
 		this.studioName = studioName;
@@ -21,6 +22,7 @@ public class GameSearchResultEntry {
 		this.genres = new HashSet<String>();
 		this.genres.add(genre);
 		this.releaseDate = releaseDate;
+		this.averageScore = averageScore;
 	}
 
 	public String getGameName() {
@@ -53,6 +55,10 @@ public class GameSearchResultEntry {
 	
 	public void addGenre(String genre) {
 		this.genres.add(genre);
+	}
+	
+	public String getAverageScore() {
+		return this.averageScore;
 	}
 
 }

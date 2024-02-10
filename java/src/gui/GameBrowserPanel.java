@@ -48,7 +48,7 @@ public class GameBrowserPanel extends JSplitPane{
 	
 	private int previousRow = -1;
 	
-	String[] columnNames = {"Name", "Release Date", "Description", "Genres", "Platforms", "Studio"};
+	String[] columnNames = {"Name", "Release Date", "Description", "Genres", "Platforms", "Studio", "Average Score"};
 	
 	public GameBrowserPanel(ConnectionManager connectionManager, UserManager userManager, boolean isPersonalGames) {
 		this.isPersonalGames = isPersonalGames;
@@ -145,7 +145,12 @@ public class GameBrowserPanel extends JSplitPane{
 				CurrentStudio = "---";
 			}
 			
-			Object[] rowValues = {CurrentGame, CurrentDate, CurrentDescription, CurrentGenres, CurrentPlatforms, CurrentStudio};
+			String CurrentAverageScore = entry.getAverageScore();
+			if (CurrentAverageScore == null) {
+				CurrentAverageScore = "---";
+			}
+			
+			Object[] rowValues = {CurrentGame, CurrentDate, CurrentDescription, CurrentGenres, CurrentPlatforms, CurrentStudio, CurrentAverageScore};
 			
 			results.add(rowValues);
 		}

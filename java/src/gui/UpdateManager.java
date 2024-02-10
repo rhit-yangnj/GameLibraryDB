@@ -28,13 +28,6 @@ public class UpdateManager {
 		this.pgbp.UpdateView();
 	}
 	
-	public void GameUpdate() {
-		this.gbp.UpdateView();
-		this.pgbp.UpdateView();
-//		this.rp.redoPersonalGames();
-//		this.np.redoPersonalGames();
-	}
-	
 	public void GameBrowserUpdate() {
 		this.gbp.UpdateView();
 		this.pgbp.UpdateView();

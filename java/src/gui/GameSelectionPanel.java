@@ -20,7 +20,7 @@ import javax.swing.JScrollPane;
 public class GameSelectionPanel extends JPanel {
 	protected UserManager userManager;
 	protected ConnectionManager connectionManager;
-	private UpdateManager updateManager;
+	protected UpdateManager updateManager;
 	
 	private JScrollPane scrollPane;
 	private JTextArea gameNameTextArea;

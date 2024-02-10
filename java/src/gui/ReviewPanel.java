@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class ReviewPanel extends JPanel {
 	private ConnectionManager connectionManager;
 	private UserManager userManager;
+	private UpdateManager updateManager;
 	private JPanel gamePanel = new JPanel();
 //	private JComboBox<String> gameList = new JComboBox<>();
 //	private JButton chooseButton = new JButton("Choose");
@@ -34,9 +35,10 @@ public class ReviewPanel extends JPanel {
 	private String selectedGame= "";
 	private int currentGameReviewID;
 	private JPanel starPanel = new JPanel();
-	public ReviewPanel(ConnectionManager connectionManager, UserManager userManager, String gameName) {
+	public ReviewPanel(ConnectionManager connectionManager, UserManager userManager, String gameName, UpdateManager updateManager) {
 		this.connectionManager = connectionManager;
 		this.userManager = userManager;
+		this.updateManager = updateManager;
 		this.selectedGame = gameName;
 		this.infoLabel = new JLabel("Current Game: " + gameName);
 
@@ -276,6 +278,7 @@ public class ReviewPanel extends JPanel {
 	        reviewOutput.setText(tempText);
 	        
 	        JOptionPane.showMessageDialog(this, "Review added successfully.");
+	        refreshGames();
 
 	    } catch (SQLException ex) {
 	        ex.printStackTrace();
@@ -299,6 +302,7 @@ public class ReviewPanel extends JPanel {
 	        numberOfStarOutput.setText("");
 	        
 	        JOptionPane.showMessageDialog(this, "Note deleted successfully.");
+	        refreshGames();
 
 	    } catch (SQLException ex) {
 	        ex.printStackTrace();
@@ -323,11 +327,17 @@ public class ReviewPanel extends JPanel {
 	        
 	        stmt.executeUpdate();
 	        JOptionPane.showMessageDialog(this, "Review updated successfully.");
+	        refreshGames();
 
 	    } catch (SQLException ex) {
 	        ex.printStackTrace();
 	        JOptionPane.showMessageDialog(this, "Error updating review: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 	    }
+	}
+	
+	private void refreshGames() {
+		updateManager.redoSearch();
+		updateManager.GameBrowserUpdate();
 	}
 
 	
