@@ -29,13 +29,14 @@ public class SearchBarPanel extends JPanel {
 	private UpdateManager updateManager;
 	
 	private JLabel searchLabel = new JLabel("Search Filters:");
-	private JTextField gameNameInput = new JTextField(20);
-	private JTextField studioInput = new JTextField(20);
-	private JTextField platformInput = new JTextField(20);
-	private JTextField genreInput = new JTextField(20);
+	private JTextField gameNameInput = new JTextField(15);
+	private JTextField studioInput = new JTextField(15);
+	private JTextField platformInput = new JTextField(15);
+	private JTextField genreInput = new JTextField(15);
+	private JTextField scoreInput = new JTextField(15);
 	private JButton searchButton = new JButton("Search");
 	
-	private String[] previousSearchArray = {null, null, null, null};
+	private String[] previousSearchArray = {null, null, null, null, null};
 	
 	private HashMap<String, GameSearchResultEntry> mostRecentSearch;
 	
@@ -120,11 +121,30 @@ public class SearchBarPanel extends JPanel {
 		    }
 		    });
 		
+		scoreInput.setText("Average Score");
+		scoreInput.setForeground(Color.GRAY);
+		scoreInput.addFocusListener(new FocusListener() {
+		    @Override
+		    public void focusGained(FocusEvent e) {
+		        if (scoreInput.getText().equals("Average Score")) {
+		        	scoreInput.setText("");
+		        	scoreInput.setForeground(Color.BLACK);
+		        }
+		    }
+		    @Override
+		    public void focusLost(FocusEvent e) {
+		        if (scoreInput.getText().isEmpty()) {
+		        	scoreInput.setForeground(Color.GRAY);
+		        	scoreInput.setText("Average Score");
+		        }
+		    }
+		    });
+		
 		this.searchButton.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String[] searchArray = {gameNameInput.getText(), studioInput.getText(), platformInput.getText(), genreInput.getText()};
+				String[] searchArray = {gameNameInput.getText(), studioInput.getText(), platformInput.getText(), genreInput.getText(), scoreInput.getText()};
 				previousSearchArray = searchArray;
 				redoSearch();
 			}
@@ -135,28 +155,29 @@ public class SearchBarPanel extends JPanel {
 		this.add(studioInput);
 		this.add(platformInput);
 		this.add(genreInput);
+		this.add(scoreInput);
 		this.add(searchButton);
 		
 	}
 	
 	public void blankSearch() {
-		String[] searchArray = {null, null, null, null};
+		String[] searchArray = {null, null, null, null, null};
 		previousSearchArray = searchArray;
 		if (userManager != null) {
 			if(userManager.getUser() != null) {
-				searchGames(userManager.getUser(), null, null, null, null);
+				searchGames(userManager.getUser(), null, null, null, null, null);
 			}
 		} else {
-			searchGames(null, null, null, null, null);
+			searchGames(null, null, null, null, null, null);
 		}
 	}
 	
-	private void searchGames(String username, String gameName, String studio, String platform, String genre) {
+	private void searchGames(String username, String gameName, String studio, String platform, String genre, String averageScore) {
 		Connection connection = connectionManager.getConnection();
 		
 		CallableStatement stmt;
 		try {
-			stmt = connection.prepareCall("{call SearchGames(?,?,?,?,?)}");
+			stmt = connection.prepareCall("{call SearchGames(?,?,?,?,?,?)}");
 			stmt.setString(1, username);
 			if (gameName != null && !gameName.equals("Game Name")) {
 				stmt.setString(2, gameName);
@@ -178,6 +199,16 @@ public class SearchBarPanel extends JPanel {
 			} else {
 				stmt.setNull(5, Types.NVARCHAR);
 			}
+			if (averageScore == null || averageScore.equals("Average Score")) {
+				stmt.setNull(6, Types.FLOAT);
+			} else {
+				float score = Float.parseFloat(averageScore);
+				if (score >= 0) {
+					stmt.setFloat(6, score);
+				} else {
+					stmt.setNull(6, Types.FLOAT);
+				}
+			}
 			ResultSet rs = stmt.executeQuery();
 			this.mostRecentSearch = parseResults(rs);
 			if (this.updateManager != null) {
@@ -198,6 +229,7 @@ public class SearchBarPanel extends JPanel {
 			int platformNameIndex = rs.findColumn("PlatformName");
 			int genreIndex = rs.findColumn("GenreName");
 			int releaseDateIndex = rs.findColumn("ReleaseDate");
+			int averageScoreIndex = rs.findColumn("AverageScore");
 			while (rs.next()) {
 				String gameName = rs.getString(gameNameIndex);
 				String description = rs.getString(descriptionIndex);
@@ -205,12 +237,14 @@ public class SearchBarPanel extends JPanel {
 				String platformName = rs.getString(platformNameIndex);
 				String genre = rs.getString(genreIndex);
 				String releaseDate = rs.getString(releaseDateIndex);
+				String averageScore = rs.getString(averageScoreIndex);
 				GameSearchResultEntry newEntry = new GameSearchResultEntry(gameName, 
 						description, 
 						studioName, 
 						platformName, 
 						genre, 
-						releaseDate);
+						releaseDate,
+						averageScore);
 				results.put(gameName, newEntry);				
 			}
 			return results;
@@ -238,9 +272,9 @@ public class SearchBarPanel extends JPanel {
 
 	public void redoSearch() {
 		if (userManager != null) {
-			searchGames(userManager.getUser(), previousSearchArray[0], previousSearchArray[1], previousSearchArray[2], previousSearchArray[3]);
+			searchGames(userManager.getUser(), previousSearchArray[0], previousSearchArray[1], previousSearchArray[2], previousSearchArray[3], previousSearchArray[4]);
 		} else {
-			searchGames(null, previousSearchArray[0], previousSearchArray[1], previousSearchArray[2], previousSearchArray[3]);
+			searchGames(null, previousSearchArray[0], previousSearchArray[1], previousSearchArray[2], previousSearchArray[3], previousSearchArray[4]);
 		}
 	}
 	

@@ -23,7 +23,6 @@ public class FullGameSelectionPanel extends GameSelectionPanel {
 					JOptionPane.showMessageDialog(null, "Please select a game first.");
 				} else if (addSelectedGameToUser()) {
 					updateManager.redoSearch();
-					updateManager.GameUpdate();
 					updateManager.GameBrowserUpdate();
 					JOptionPane.showMessageDialog(null, "Successfully Added Game to account!");
 				}

@@ -57,7 +57,7 @@ public class GameEditPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (addGameToUser(GameList.getSelectedItem().toString())) {
-					updateManager.GameUpdate();
+					updateManager.GameBrowserUpdate();
 					JOptionPane.showMessageDialog(null, "Successfully Added Game to account!");
 				}
 			}
@@ -74,7 +74,7 @@ public class GameEditPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (RemoveGameFromUser(removeGameList.getSelectedItem().toString())) {
-					updateManager.GameUpdate();
+					updateManager.GameBrowserUpdate();
 					JOptionPane.showMessageDialog(null, "Successfully Removed Game from account!");
 				}
 			}

@@ -28,9 +28,8 @@ public class PersonalGameSelectionPanel extends GameSelectionPanel {
 					JOptionPane.showMessageDialog(null, "Please select a game first.");
 				} else if (removeSelectedGameFromUser()) {
 					updateManager.redoSearch();
-					updateManager.GameUpdate();
 					updateManager.GameBrowserUpdate();
-					JOptionPane.showMessageDialog(null, "Successfully Removed Game from account!");
+					JOptionPane.showMessageDialog(null, "Successfully removed game from account!");
 				}
 				
 			}
@@ -97,7 +96,7 @@ public class PersonalGameSelectionPanel extends GameSelectionPanel {
 		reviewFrame.setSize(frameWidth, frameHeight);
 		reviewFrame.setLocation(frameXLoc, frameYLoc);
 		reviewFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		ReviewPanel reviewPanel = new ReviewPanel(connectionManager, userManager, selectedGameName);
+		ReviewPanel reviewPanel = new ReviewPanel(connectionManager, userManager, selectedGameName, updateManager);
 		
 		reviewFrame.add(reviewPanel);
 		reviewFrame.setVisible(true);
@@ -127,7 +126,7 @@ public class PersonalGameSelectionPanel extends GameSelectionPanel {
 				JOptionPane.showMessageDialog(null, "You do not have that game added to your library, please try again");
 				return false;
 			} else if (returnCode != 0) {
-				JOptionPane.showMessageDialog(null, "An error occured while Removing this game. Please try again");
+				JOptionPane.showMessageDialog(null, "An error occured while removing this game. Please try again");
 				return false;
 			}
 			
@@ -146,7 +145,7 @@ public class PersonalGameSelectionPanel extends GameSelectionPanel {
 				JOptionPane.showMessageDialog(null, "You do not have that game added to your library, please try again");
 				return false;
 			} else if (returnCode != 0) {
-				JOptionPane.showMessageDialog(null, "An error occured while Removing this game.");
+				JOptionPane.showMessageDialog(null, "An error occured while removing this game.");
 				return false;
 			}
 		}
