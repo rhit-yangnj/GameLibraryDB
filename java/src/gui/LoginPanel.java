@@ -93,6 +93,7 @@ public class LoginPanel extends JPanel {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Login Failed");
 		}
+		JOptionPane.showMessageDialog(null, "Login Failed");
 	return false;
 	}
 
