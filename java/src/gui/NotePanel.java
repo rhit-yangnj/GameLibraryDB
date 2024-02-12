@@ -219,6 +219,11 @@ public class NotePanel extends JPanel {
 	    }
     
 	    String noteText = noteInput.getText();
+	    
+	    if (noteText.length() > 1000) {
+	    	JOptionPane.showMessageDialog(this, "Note length must be 1000 characters or less.", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
 
 	    try  {
 	    	Connection conn = connectionManager.getConnection();
@@ -266,6 +271,11 @@ public class NotePanel extends JPanel {
 	private void updateNoteInDatabase(int currentNoteId, String newText) {
 	    if (currentNoteId == -1) {
 	        JOptionPane.showMessageDialog(this, "No note selected to update.", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
+	    
+	    if (newText.length() > 1000) {
+	    	JOptionPane.showMessageDialog(this, "Note length must be 1000 characters or less.", "Error", JOptionPane.ERROR_MESSAGE);
 	        return;
 	    }
 
