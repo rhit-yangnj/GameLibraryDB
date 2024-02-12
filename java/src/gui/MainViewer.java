@@ -81,10 +81,10 @@ public class MainViewer {
 	}
 	
 	public void UserLoginUpdate() {
-		frame.setVisible(false);
 		frame.setTitle("Game Library");
 		frame.remove(LoginTabs);
 		frame.add(MainTabs);
-		frame.setVisible(true);
+		frame.revalidate();
+		frame.repaint();
 	}
 }

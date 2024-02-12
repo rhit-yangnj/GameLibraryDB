@@ -210,8 +210,8 @@ public class SearchBarPanel extends JPanel {
 						stmt.setNull(6, Types.FLOAT);
 					}
 				} catch (NumberFormatException e) {
-					JOptionPane.showMessageDialog(this, "Please enter a valid number.");
-					return;
+					JOptionPane.showMessageDialog(null, "Please enter a valid number");
+          return;
 				}
 				
 			}
