@@ -259,6 +259,23 @@ public class ReviewPanel extends JPanel {
     
 	    String reviewText = reviewInput.getText();
 	    String reviewStar = numberOfStarInput.getText();
+	    
+	    if (reviewText.length() > 500) {
+	    	JOptionPane.showMessageDialog(this, "Note length must be 500 characters or less.", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
+	    try {
+			float score = Float.parseFloat(reviewStar);
+			if (score > 5 || score < 0) {
+				JOptionPane.showMessageDialog(this, "Number of stars must be between 0 and 5.");
+				return;
+			}
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(this, "Please enter a valid number.");
+			return;
+		}
+	    
+	    
 
 	    try  {
 	    	Connection conn = connectionManager.getConnection();
@@ -316,6 +333,21 @@ public class ReviewPanel extends JPanel {
 	        JOptionPane.showMessageDialog(this, "No note selected to update.", "Error", JOptionPane.ERROR_MESSAGE);
 	        return;
 	    }
+	    
+	    if (newText.length() > 500) {
+	    	JOptionPane.showMessageDialog(this, "Note length must be 500 characters or less.", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
+	    try {
+			float score = Float.parseFloat(newStar);
+			if (score > 5 || score < 0) {
+				JOptionPane.showMessageDialog(this, "Number of stars must be between 0 and 5.");
+				return;
+			}
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(this, "Please enter a valid number.");
+			return;
+		}
 
 	    try {
 	    	Connection conn = connectionManager.getConnection();

@@ -202,12 +202,18 @@ public class SearchBarPanel extends JPanel {
 			if (averageScore == null || averageScore.equals("Average Score")) {
 				stmt.setNull(6, Types.FLOAT);
 			} else {
-				float score = Float.parseFloat(averageScore);
-				if (score >= 0) {
-					stmt.setFloat(6, score);
-				} else {
-					stmt.setNull(6, Types.FLOAT);
+				try {
+					float score = Float.parseFloat(averageScore);
+					if (score >= 0) {
+						stmt.setFloat(6, score);
+					} else {
+						stmt.setNull(6, Types.FLOAT);
+					}
+				} catch (NumberFormatException e) {
+					JOptionPane.showMessageDialog(this, "Please enter a valid number.");
+					return;
 				}
+				
 			}
 			ResultSet rs = stmt.executeQuery();
 			this.mostRecentSearch = parseResults(rs);

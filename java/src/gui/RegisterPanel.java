@@ -116,6 +116,9 @@ public class RegisterPanel extends JPanel {
 				} else if (usernameField.getText().equals("")) {
 					JOptionPane.showMessageDialog(null,
 							"Username cannot be empty");
+				} else if (usernameField.getText().length() > 20) {
+					JOptionPane.showMessageDialog(null,
+							"Username must be 20 characters or less");
 				} else {
 					if (register(usernameField.getText(), passwordField.getPassword())) {
 						JOptionPane.showMessageDialog(null,
