@@ -60,7 +60,7 @@ public class MainViewer {
 		
 		
 //		UpdateManager updateManager = new UpdateManager(gameScreen, gameBrowserPanel, this, notePanel, reviewPanel, personalGameBrowserPanel);
-		UpdateManager updateManager = new UpdateManager(gameScreen, gameBrowserPanel, this, personalGameBrowserPanel);
+		UpdateManager updateManager = new UpdateManager(gameScreen, gameBrowserPanel, this, personalGameBrowserPanel, singleGameBrowsingScreen);
 		
 		gameScreen.setUpdateManager(updateManager);
 		gameBrowserPanel.setUpdateManager(updateManager);
