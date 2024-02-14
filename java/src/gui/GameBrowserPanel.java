@@ -84,10 +84,10 @@ public class GameBrowserPanel extends JSplitPane{
 			public void valueChanged(ListSelectionEvent e) {
 				int rowNum = table.getSelectedRow();
 				String gameName = (String) table.getValueAt(rowNum, 0);
-				String description = (String) table.getValueAt(rowNum, 1);
-				String studio = (String) table.getValueAt(rowNum, 2);
-				String platforms = (String) table.getValueAt(rowNum, 3);
-				String genres = (String) table.getValueAt(rowNum, 4);
+				String description = (String) table.getValueAt(rowNum, 2);
+				String studio = (String) table.getValueAt(rowNum, 5);
+				String platforms = (String) table.getValueAt(rowNum, 4);
+				String genres = (String) table.getValueAt(rowNum, 3);
 				selectedGamePanel.updateSelectedGame(gameName, description, studio, platforms, genres);
 			}
 		});
