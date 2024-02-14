@@ -108,21 +108,24 @@ public class RegisterPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (!Arrays.equals(passwordField.getPassword(), confirmPasswordField.getPassword())) {
-					JOptionPane.showMessageDialog(null,
-							"Passwords do not match.");
+					ErrorPanels.createErrorDialogue("Passwords do not match.");
+//					JOptionPane.showMessageDialog(null,
+//							"Passwords do not match.");
 				} else if (passwordField.getPassword().equals("")) {
-					JOptionPane.showMessageDialog(null,
-							"Password cannot be empty");
+					ErrorPanels.createErrorDialogue("Password cannot be empty");
+//					JOptionPane.showMessageDialog(null,
+//							"Password cannot be empty");
 				} else if (usernameField.getText().equals("")) {
-					JOptionPane.showMessageDialog(null,
-							"Username cannot be empty");
+					ErrorPanels.createErrorDialogue("Username cannot be empty");
+//					JOptionPane.showMessageDialog(null,
+//							"Username cannot be empty");
 				} else if (usernameField.getText().length() > 20) {
-					JOptionPane.showMessageDialog(null,
-							"Username must be 20 characters or less");
+					ErrorPanels.createErrorDialogue("Username must be 20 characters or less");
+//					JOptionPane.showMessageDialog(null,
+//							"Username must be 20 characters or less");
 				} else {
 					if (register(usernameField.getText(), passwordField.getPassword())) {
-						JOptionPane.showMessageDialog(null,
-								"Successfully registered account!");
+						ErrorPanels.createInfoDialogue("Successfully registered account!");
 					}
 				}
 			}

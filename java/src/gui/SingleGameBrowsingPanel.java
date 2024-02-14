@@ -77,7 +77,8 @@ public class SingleGameBrowsingPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 selectedGameName = (String) gameList.getSelectedItem();
-                JOptionPane.showMessageDialog(null, "Selected game: " + selectedGameName);
+				ErrorPanels.createInfoDialogue("Selected game: " + selectedGameName);
+                //JOptionPane.showMessageDialog(null, "Selected game: " + selectedGameName);
                 addNotesToTable(selectedGameName); // Call addNotesToTable method with the selected game name
                 addReviewsToTable(selectedGameName); // Call addReviewsToTable method with the selected game name
                 displayAverageRating(selectedGameName); // Call displayAverageRating method with the selected game name

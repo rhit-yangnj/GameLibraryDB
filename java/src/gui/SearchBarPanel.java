@@ -210,7 +210,8 @@ public class SearchBarPanel extends JPanel {
 						stmt.setNull(6, Types.FLOAT);
 					}
 				} catch (NumberFormatException e) {
-					JOptionPane.showMessageDialog(null, "Please enter a valid number");
+					ErrorPanels.createWarningDialogue("Please enter a valid number");
+					//JOptionPane.showMessageDialog(null, "Please enter a valid number");
           return;
 				}
 				
@@ -255,8 +256,9 @@ public class SearchBarPanel extends JPanel {
 			}
 			return results;
 		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(null,
-					"An error ocurred while retrieving games.");
+			ErrorPanels.createWarningDialogue("An error ocurred while retrieving games.");
+//			JOptionPane.showMessageDialog(null,
+//					"An error ocurred while retrieving games.");
 			ex.printStackTrace();
 			return new HashMap<String, GameSearchResultEntry>();
 		}

@@ -58,7 +58,8 @@ public class GameEditPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (addGameToUser(GameList.getSelectedItem().toString())) {
 					updateManager.GameBrowserUpdate();
-					JOptionPane.showMessageDialog(null, "Successfully Added Game to account!");
+					ErrorPanels.createInfoDialogue("Successfully Added Game to account!");
+					//JOptionPane.showMessageDialog(null, "Successfully Added Game to account!");
 				}
 			}
 			
@@ -75,7 +76,8 @@ public class GameEditPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (RemoveGameFromUser(removeGameList.getSelectedItem().toString())) {
 					updateManager.GameBrowserUpdate();
-					JOptionPane.showMessageDialog(null, "Successfully Removed Game from account!");
+					ErrorPanels.createInfoDialogue("Successfully Removed Game to account!");
+					//JOptionPane.showMessageDialog(null, "Successfully Removed Game from account!");
 				}
 			}
 		
@@ -139,13 +141,16 @@ public class GameEditPanel extends JPanel {
 			System.out.println(returnCode);
 			
 			if (returnCode == 1 || returnCode == 2) {
-				JOptionPane.showMessageDialog(null, "Game is null or nonexistant, please select a game");
+				ErrorPanels.createErrorDialogue("Game is null or nonexistant, please select a game");
+				//JOptionPane.showMessageDialog(null, "Game is null or nonexistant, please select a game");
 				return false;
 			} else if (returnCode == 3 || returnCode == 4) {
-				JOptionPane.showMessageDialog(null, "Username is null or nonexistant, please sign in.");
+				ErrorPanels.createErrorDialogue("Username is null or nonexistant, please sign in.");
+				//JOptionPane.showMessageDialog(null, "Username is null or nonexistant, please sign in.");
 				return false;
 			} else if (returnCode != 0) {
-				JOptionPane.showMessageDialog(null, "An error occured while adding this game. Please try again");
+				ErrorPanels.createErrorDialogue("An error occured while adding this game. Please try again");
+				//JOptionPane.showMessageDialog(null, "An error occured while adding this game. Please try again");
 				return false;
 			}
 			
@@ -156,13 +161,16 @@ public class GameEditPanel extends JPanel {
 			e.printStackTrace();
 			System.out.println(returnCode);
 			if (returnCode == 3 || returnCode == 4) {
-				JOptionPane.showMessageDialog(null, "Username is null or nonexistant, please sign in.");
+				ErrorPanels.createErrorDialogue("Username is null or nonexistant, please sign in.");
+				//JOptionPane.showMessageDialog(null, "Username is null or nonexistant, please sign in.");
 				return false;
 			} else if (returnCode == 1 || returnCode == 2) {
-				JOptionPane.showMessageDialog(null, "Game is null or nonexistant, please select a game");
+				ErrorPanels.createErrorDialogue("Game is null or nonexistant, please select a game");
+				//JOptionPane.showMessageDialog(null, "Game is null or nonexistant, please select a game");
 				return false;
 			} else if (returnCode != 0) {
-				JOptionPane.showMessageDialog(null, "An error occured while Adding this game.");
+				ErrorPanels.createErrorDialogue("An error occured while adding this game. Please try again");
+				//JOptionPane.showMessageDialog(null, "An error occured while Adding this game.");
 				return false;
 			}
 		}
@@ -239,16 +247,20 @@ public class GameEditPanel extends JPanel {
 			System.out.println(returnCode);
 			
 			if (returnCode == 1 || returnCode == 2) {
-				JOptionPane.showMessageDialog(null, "Game is null or nonexistant, please select a game");
+				ErrorPanels.createErrorDialogue("Game is null or nonexistant, please select a game");
+				//JOptionPane.showMessageDialog(null, "Game is null or nonexistant, please select a game");
 				return false;
 			} else if (returnCode == 3 || returnCode == 4) {
-				JOptionPane.showMessageDialog(null, "Username is null or nonexistant, please sign in.");
+				ErrorPanels.createErrorDialogue("Username is null or nonexistant, please sign in.");
+				//JOptionPane.showMessageDialog(null, "Username is null or nonexistant, please sign in.");
 				return false;
 			} else if (returnCode == 5) {
-				JOptionPane.showMessageDialog(null, "You do not have that game added to your library, please try again");
+				ErrorPanels.createErrorDialogue("You do not have that game added to your library, please try again");
+				//JOptionPane.showMessageDialog(null, "You do not have that game added to your library, please try again");
 				return false;
 			} else if (returnCode != 0) {
-				JOptionPane.showMessageDialog(null, "An error occured while Removing this game. Please try again");
+				ErrorPanels.createErrorDialogue("An error occured while Removing this game. Please try again");
+				//JOptionPane.showMessageDialog(null, "An error occured while Removing this game. Please try again");
 				return false;
 			}
 			
@@ -259,16 +271,20 @@ public class GameEditPanel extends JPanel {
 			e.printStackTrace();
 			System.out.println(returnCode);
 			if (returnCode == 3 || returnCode == 4) {
-				JOptionPane.showMessageDialog(null, "Username is null or nonexistant, please sign in.");
+				ErrorPanels.createErrorDialogue("Username is null or nonexistant, please sign in.");
+//				JOptionPane.showMessageDialog(null, "Username is null or nonexistant, please sign in.");
 				return false;
 			} else if (returnCode == 1 || returnCode == 2) {
-				JOptionPane.showMessageDialog(null, "Game is null or nonexistant, please select a game");
+				ErrorPanels.createErrorDialogue("Game is null or nonexistant, please select a game");
+				//JOptionPane.showMessageDialog(null, "Game is null or nonexistant, please select a game");
 				return false;
 			} else if (returnCode == 5) {
-				JOptionPane.showMessageDialog(null, "You do not have that game added to your library, please try again");
+				ErrorPanels.createErrorDialogue("You do not have that game added to your library, please try again");
+//				JOptionPane.showMessageDialog(null, "You do not have that game added to your library, please try again");
 				return false;
 			} else if (returnCode != 0) {
-				JOptionPane.showMessageDialog(null, "An error occured while Removing this game.");
+				ErrorPanels.createErrorDialogue("An error occured while Removing this game. Please try again");
+//				JOptionPane.showMessageDialog(null, "An error occured while Removing this game.");
 				return false;
 			}
 		}
