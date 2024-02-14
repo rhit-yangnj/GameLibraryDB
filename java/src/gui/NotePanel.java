@@ -171,7 +171,7 @@ public class NotePanel extends JPanel {
 	        stmt.setString(1, selectedGame);
 	        stmt.setString(2, userManager.getUser());
 
-	        rs = stmt.executeQuery();
+	        rs = stmt.executeQuery(); 
 
 	        if (rs.next()) {
 	            noteID = rs.getInt("Id"); 

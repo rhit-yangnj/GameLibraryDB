@@ -31,7 +31,6 @@ public class SingleGameBrowsingPanel extends JPanel {
         JPanel gamePanel = new JPanel();
         gamePanel.add(infoLabel);
 
-        // Populate the gameList JComboBox with stored games
         String[] games = getAllStoredGames();
         for (String game : games) {
             gameList.addItem(game);
@@ -41,7 +40,7 @@ public class SingleGameBrowsingPanel extends JPanel {
         gamePanel.add(chooseButton);
         add(gamePanel);
 
-        // Create note output table
+
         JPanel notePanel = new JPanel(new BorderLayout());
         notePanel.add(new JLabel("Notes:"), BorderLayout.NORTH);
         noteTableModel = new DefaultTableModel(new Object[]{"Notes", "Users"}, 0);
@@ -50,7 +49,7 @@ public class SingleGameBrowsingPanel extends JPanel {
         notePanel.add(noteScrollPane, BorderLayout.CENTER);
         add(notePanel);
 
-        // Create review output table
+
         JPanel reviewPanel = new JPanel(new BorderLayout());
         reviewPanel.add(new JLabel("Reviews:"), BorderLayout.NORTH);
         reviewTableModel = new DefaultTableModel(new Object[]{"Reviews", "Users"}, 0);
@@ -68,11 +67,10 @@ public class SingleGameBrowsingPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 selectedGameName = (String) gameList.getSelectedItem();
-				ErrorPanels.createInfoDialogue("Selected game: " + selectedGameName);
-                //JOptionPane.showMessageDialog(null, "Selected game: " + selectedGameName);
-                addNotesToTable(selectedGameName); // Call addNotesToTable method with the selected game name
-                addReviewsToTable(selectedGameName); // Call addReviewsToTable method with the selected game name
-                displayAverageRating(selectedGameName); // Call displayAverageRating method with the selected game name
+                JOptionPane.showMessageDialog(null, "Selected game: " + selectedGameName);
+                addNotesToTable(selectedGameName); 
+                addReviewsToTable(selectedGameName); 
+                displayAverageRating(selectedGameName); 
             }
         });
     }
@@ -124,23 +122,23 @@ public class SingleGameBrowsingPanel extends JPanel {
 
         CallableStatement stmt;
         try {
-            // Call the stored procedure to retrieve notes for the selected game
+
             stmt = connection.prepareCall("{call GetNotesForGame(?)}");
             stmt.setString(1, selectedGameName);
             ResultSet rs = stmt.executeQuery();
 
-            // Populate noteData with the retrieved notes data
+ 
             while (rs.next()) {
                 String note = rs.getString("Note");
                 String user = rs.getString("NoteWriter");
                 noteData.add(new String[]{note, user});
             }
 
-            // Update the note output table with the retrieved data
+
             updateNoteTable(noteData);
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle SQLException
+
         }
     }
 
@@ -150,37 +148,37 @@ public class SingleGameBrowsingPanel extends JPanel {
 
         CallableStatement stmt;
         try {
-            // Call the stored procedure to retrieve reviews for the selected game
+
             stmt = connection.prepareCall("{call GetReviewsForGame(?)}");
             stmt.setString(1, selectedGameName);
             ResultSet rs = stmt.executeQuery();
 
-            // Populate reviewData with the retrieved reviews data
+
             while (rs.next()) {
                 String review = rs.getString("Review");
                 String user = rs.getString("ReviewWriter");
                 reviewData.add(new String[]{review, user});
             }
 
-            // Update the review output table with the retrieved data
+
             updateReviewTable(reviewData);
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle SQLException
+
         }
     }
 
-    // Method to update note output table
+
     public void updateNoteTable(ArrayList<String[]> noteData) {
-        noteTableModel.setRowCount(0); // Clear existing data
+        noteTableModel.setRowCount(0); 
         for (String[] row : noteData) {
             noteTableModel.addRow(row);
         }
     }
 
-    // Method to update review output table
+
     public void updateReviewTable(ArrayList<String[]> reviewData) {
-        reviewTableModel.setRowCount(0); // Clear existing data
+        reviewTableModel.setRowCount(0); 
         for (String[] row : reviewData) {
             reviewTableModel.addRow(row);
         }
@@ -192,22 +190,22 @@ public class SingleGameBrowsingPanel extends JPanel {
 
         CallableStatement stmt;
         try {
-            // Call the stored procedure to retrieve the average rating for the selected game
+
             stmt = connection.prepareCall("{call GetAverageStarsForGame(?)}");
             stmt.setString(1, selectedGameName);
 
             ResultSet rs = stmt.executeQuery();
 
-            // Retrieve the result set containing the average rating
+
             if (rs.next()) {
-                averageRating = rs.getDouble(1); // Assuming the average rating is in the first column of the result set
+                averageRating = rs.getDouble(1); 
             }
 
-            // Update the infoLabel with the average rating
+
             infoLabel.setText("Average Rating: " + averageRating);
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle SQLException
+
         }
     }
 

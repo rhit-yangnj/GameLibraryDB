@@ -15,6 +15,7 @@ public class PersonalGameSelectionPanel extends GameSelectionPanel {
 	
 	private JButton addNoteButton;
 	private JButton addReviewButton;
+	private SingleGameBrowsingPanel singleGameBrowsingPanel;
 
 	public PersonalGameSelectionPanel(UserManager userManager, ConnectionManager connectionManager,
 			UpdateManager updateManager) {
@@ -66,6 +67,23 @@ public class PersonalGameSelectionPanel extends GameSelectionPanel {
 		this.add(editGameButton);
 		this.add(addNoteButton);
 		this.add(addReviewButton);
+		
+		
+		this.seeReviewButton = new JButton("See Review For Selected Game");
+		this.seeReviewButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (selectedGameName.equals("No Game Selected")) {
+                    JOptionPane.showMessageDialog(null, "Please select a game first.");
+                } else {
+                    showSingleGameBrowsingPanel(selectedGameName);
+                }
+            }
+        });
+        this.add(seeReviewButton);
+		
+		
+		
 	}
 	
 	private void showAddNotePanel() {
@@ -86,6 +104,32 @@ public class PersonalGameSelectionPanel extends GameSelectionPanel {
 		noteFrame.add(notePanel);
 		noteFrame.setVisible(true);
 	}
+	
+	
+	
+//	private void showSingleGameBrowsingPanel(String selectedGameName) {
+//        if (singleGameBrowsingPanel == null) {
+//            singleGameBrowsingPanel = new SingleGameBrowsingPanel(connectionManager, userManager);
+//        }
+//        singleGameBrowsingPanel.addReviewsToTable(selectedGameName); 
+//        JOptionPane.showMessageDialog(null, singleGameBrowsingPanel); 
+//    }
+	
+	private void showSingleGameBrowsingPanel(String selectedGameName) {
+	    JFrame frame = new JFrame("Single Game Browsing Panel");
+	    
+	    if (singleGameBrowsingPanel == null) {
+	        singleGameBrowsingPanel = new SingleGameBrowsingPanel(connectionManager, userManager);
+	    }
+	    
+	    singleGameBrowsingPanel.addReviewsToTable(selectedGameName); 
+	    
+	    frame.add(singleGameBrowsingPanel);
+	    
+	    frame.pack();
+	    frame.setVisible(true);
+	}
+
 	
 	private void showAddReviewPanel() {
 		final String frameTitle = "Game Library - Add Review";

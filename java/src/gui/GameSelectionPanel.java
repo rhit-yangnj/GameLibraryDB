@@ -29,6 +29,7 @@ public class GameSelectionPanel extends JPanel {
 	private JTextArea platformsTextArea;
 	private JTextArea genresTextArea;
 	protected JButton editGameButton;
+	protected JButton seeReviewButton;
 	
 	protected String selectedGameName;
 	
