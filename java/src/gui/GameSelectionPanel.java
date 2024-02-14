@@ -78,7 +78,7 @@ public class GameSelectionPanel extends JPanel {
 		this.descriptionTextArea.setText("Description: " + description);
 		this.studioTextArea.setText("Studio: " + studio);
 		this.platformsTextArea.setText("Platforms: " + platforms);
-		this.genresTextArea.setText("Genres" + genres);
+		this.genresTextArea.setText("Genres: " + genres);
 		this.selectedGameName = gameName;
 	}
 	
