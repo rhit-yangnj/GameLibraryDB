@@ -67,7 +67,8 @@ public class NotePanel extends JPanel {
 		
 		currentGameNoteID = chooseGameGetNoteID();
         if(currentGameNoteID==-1) {
-        	JOptionPane.showMessageDialog(null, "This game does not have a note yet");
+			ErrorPanels.createInfoDialogue("This game does not have a note yet");
+//        	JOptionPane.showMessageDialog(null, "This game does not have a note yet");
         } else {
         	noteOutput.setText(readNoteFromDatabase(currentGameNoteID));
     	}
@@ -155,7 +156,8 @@ public class NotePanel extends JPanel {
 	    int noteID = -1; // Default value if noteID is not found or an error occurs
 
 	    if (selectedGame.isEmpty() || selectedGame.equals("Log In to use")) {
-	        JOptionPane.showMessageDialog(this, "Please select a game first.", "Error", JOptionPane.ERROR_MESSAGE);
+			ErrorPanels.createErrorDialogue("Please select a game first.");
+//	        JOptionPane.showMessageDialog(this, "Please select a game first.", "Error", JOptionPane.ERROR_MESSAGE);
 	        return noteID;
 	    }
 
@@ -196,7 +198,8 @@ public class NotePanel extends JPanel {
 	        if (rs.next()) {
 	            noteText = rs.getString("text"); 
 	        } else {
-	            JOptionPane.showMessageDialog(this, "Note not found.", "Error", JOptionPane.ERROR_MESSAGE);
+				ErrorPanels.createErrorDialogue("Note not found.");
+//	            JOptionPane.showMessageDialog(this, "Note not found.", "Error", JOptionPane.ERROR_MESSAGE);
 	        }
 //	        System.out.println(connectionManager.getConnection().isClosed());
 
@@ -214,11 +217,18 @@ public class NotePanel extends JPanel {
 		String tempText="";
 		String currentUser = userManager.getUser();
 		if (selectedGame.isEmpty()|| selectedGame=="" ||selectedGame=="Log In to use") {
-	        JOptionPane.showMessageDialog(this, "Please select a game first.", "Error", JOptionPane.ERROR_MESSAGE);
+			ErrorPanels.createErrorDialogue("Please select a game first.");
+//	        JOptionPane.showMessageDialog(this, "Please select a game first.", "Error", JOptionPane.ERROR_MESSAGE);
 	        return;
 	    }
     
 	    String noteText = noteInput.getText();
+	    
+	    if (noteText.length() > 1000) {
+			ErrorPanels.createErrorDialogue("Note length must be 1000 characters or less.");
+//	    	JOptionPane.showMessageDialog(this, "Note length must be 1000 characters or less.", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
 
 	    try  {
 	    	Connection conn = connectionManager.getConnection();
@@ -233,7 +243,8 @@ public class NotePanel extends JPanel {
 	        noteInput.setText("");
 	        noteOutput.setText(tempText);
 	        
-	        JOptionPane.showMessageDialog(this, "Note added successfully.");
+			ErrorPanels.createInfoDialogue("Note added successfully.");
+//	        JOptionPane.showMessageDialog(this, "Note added successfully.");
 
 	    } catch (SQLException ex) {
 	        ex.printStackTrace();
@@ -244,6 +255,7 @@ public class NotePanel extends JPanel {
 	
 	private void deleteNoteFromDatabase(int currentNoteId) {
 	    if (currentNoteId == -1) {
+			ErrorPanels.createErrorDialogue("No note selected to delete.");
 	        JOptionPane.showMessageDialog(this, "No note selected to delete.", "Error", JOptionPane.ERROR_MESSAGE);
 	        return;
 	    }
@@ -254,7 +266,8 @@ public class NotePanel extends JPanel {
 	        stmt.setInt(1, currentNoteId);
 	        stmt.executeUpdate();
 	        noteOutput.setText("");
-	        JOptionPane.showMessageDialog(this, "Note deleted successfully.");
+			ErrorPanels.createInfoDialogue("Note deleted successfully.");
+//	        JOptionPane.showMessageDialog(this, "Note deleted successfully.");
 
 	    } catch (SQLException ex) {
 	        ex.printStackTrace();
@@ -265,7 +278,14 @@ public class NotePanel extends JPanel {
 	
 	private void updateNoteInDatabase(int currentNoteId, String newText) {
 	    if (currentNoteId == -1) {
-	        JOptionPane.showMessageDialog(this, "No note selected to update.", "Error", JOptionPane.ERROR_MESSAGE);
+			ErrorPanels.createErrorDialogue("No note selected to update.");
+//	        JOptionPane.showMessageDialog(this, "No note selected to update.", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
+	    
+	    if (newText.length() > 1000) {
+			ErrorPanels.createErrorDialogue("Note length must be 1000 characters or less.");
+//	    	JOptionPane.showMessageDialog(this, "Note length must be 1000 characters or less.", "Error", JOptionPane.ERROR_MESSAGE);
 	        return;
 	    }
 
@@ -277,7 +297,8 @@ public class NotePanel extends JPanel {
 	        stmt.setString(2, newText);
 
 	        stmt.executeUpdate();
-	        JOptionPane.showMessageDialog(this, "Note updated successfully.");
+			ErrorPanels.createInfoDialogue("Note updated successfully.");
+//	        JOptionPane.showMessageDialog(this, "Note updated successfully.");
 
 	    } catch (SQLException ex) {
 	        ex.printStackTrace();

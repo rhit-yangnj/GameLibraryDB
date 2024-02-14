@@ -22,11 +22,13 @@ public class FullGameSelectionPanel extends GameSelectionPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (selectedGameName.equals("No Game Selected")) {
-					JOptionPane.showMessageDialog(null, "Please select a game first.");
+					ErrorPanels.createErrorDialogue("Please select a game first.");
+//					JOptionPane.showMessageDialog(null, "Please select a game first.");
 				} else if (addSelectedGameToUser()) {
 					updateManager.redoSearch();
 					updateManager.GameBrowserUpdate();
-					JOptionPane.showMessageDialog(null, "Successfully Added Game to account!");
+					ErrorPanels.createInfoDialogue("Successfully Added Game to account!");
+//					JOptionPane.showMessageDialog(null, "Successfully Added Game to account!");
 				}
 			
 			}
@@ -88,16 +90,20 @@ public class FullGameSelectionPanel extends GameSelectionPanel {
 			System.out.println(returnCode);
 			
 			if (returnCode == 5) {
-				JOptionPane.showMessageDialog(null, "You already own this game.");
+				ErrorPanels.createErrorDialogue("You already own this game.");
+//				JOptionPane.showMessageDialog(null, "You already own this game.");
 				return false;
 			} else if (returnCode == 1 || returnCode == 2) {
-				JOptionPane.showMessageDialog(null, "Game is null or nonexistant, please select a game");
+				ErrorPanels.createErrorDialogue("Game is null or nonexistant, please select a game");
+//				JOptionPane.showMessageDialog(null, "Game is null or nonexistant, please select a game");
 				return false;
 			} else if (returnCode == 3 || returnCode == 4) {
-				JOptionPane.showMessageDialog(null, "Username is null or nonexistant, please sign in.");
+				ErrorPanels.createErrorDialogue("Username is null or nonexistant, please sign in.");
+//				JOptionPane.showMessageDialog(null, "Username is null or nonexistant, please sign in.");
 				return false;
 			} else if (returnCode != 0) {
-				JOptionPane.showMessageDialog(null, "An error occured while adding this game. Please try again");
+				ErrorPanels.createErrorDialogue("An error occured while adding this game. Please try again");
+//				JOptionPane.showMessageDialog(null, "An error occured while adding this game. Please try again");
 				return false;
 			}
 
@@ -107,16 +113,20 @@ public class FullGameSelectionPanel extends GameSelectionPanel {
 			e.printStackTrace();
 			System.out.println(returnCode);
 			if (returnCode == 5) {
-				JOptionPane.showMessageDialog(null, "You already own this game.");
+				ErrorPanels.createErrorDialogue("You already own this game.");
+//				JOptionPane.showMessageDialog(null, "You already own this game.");
 				return false;
 			} else if (returnCode == 3 || returnCode == 4) {
-				JOptionPane.showMessageDialog(null, "Username is null or nonexistant, please sign in.");
+				ErrorPanels.createErrorDialogue("Username is null or nonexistant, please sign in.");
+//				JOptionPane.showMessageDialog(null, "Username is null or nonexistant, please sign in.");
 				return false;
 			} else if (returnCode == 1 || returnCode == 2) {
-				JOptionPane.showMessageDialog(null, "Game is null or nonexistant, please select a game");
+				ErrorPanels.createErrorDialogue("Game is null or nonexistant, please select a game");
+//				JOptionPane.showMessageDialog(null, "Game is null or nonexistant, please select a game");
 				return false;
 			} else if (returnCode != 0) {
-				JOptionPane.showMessageDialog(null, "An error occured while adding this game.");
+				ErrorPanels.createErrorDialogue("An error occured while adding this game. Please try again");
+//				JOptionPane.showMessageDialog(null, "An error occured while adding this game.");
 				return false;
 			}
 		}

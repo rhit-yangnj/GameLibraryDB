@@ -89,15 +89,18 @@ public class LoginPanel extends JPanel {
 
 	        if (correctHash.equals(inputHash)) {
 	            this.userManager.setUser(username);
-	            JOptionPane.showMessageDialog(null, "Login Successful");
+					    ErrorPanels.createInfoDialogue("Login Successful");
+	            //JOptionPane.showMessageDialog(null, "Login Successful");
 	            return true;
 	        } else {
-	            JOptionPane.showMessageDialog(null, "Login Failed");
+			        ErrorPanels.createWarningDialogue("Login Failed");
+	            //JOptionPane.showMessageDialog(null, "Login Failed");
 	            return false;
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
-	        JOptionPane.showMessageDialog(null, "Login Failed");
+			    ErrorPanels.createWarningDialogue("Login Failed");
+	        //JOptionPane.showMessageDialog(null, "Login Failed");
 	        return false;
 	    }
 	}
@@ -175,10 +178,12 @@ public class LoginPanel extends JPanel {
 				f = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
 				hash = f.generateSecret(spec).getEncoded();
 			} catch (NoSuchAlgorithmException e) {
-				JOptionPane.showMessageDialog(null, "An error occurred during password hashing. See stack trace.");
+				ErrorPanels.createWarningDialogue("An error occurred during password hashing. See stack trace.");
+				//JOptionPane.showMessageDialog(null, "An error occurred during password hashing. See stack trace.");
 				e.printStackTrace();
 			} catch (InvalidKeySpecException e) {
-				JOptionPane.showMessageDialog(null, "An error occurred during password hashing. See stack trace.");
+				ErrorPanels.createWarningDialogue("An error occurred during password hashing. See stack trace.");
+				//JOptionPane.showMessageDialog(null, "An error occurred during password hashing. See stack trace.");
 				e.printStackTrace();
 			}
 			return getStringFromBytes(hash);

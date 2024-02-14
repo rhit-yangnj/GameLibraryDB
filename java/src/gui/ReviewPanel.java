@@ -82,7 +82,8 @@ public class ReviewPanel extends JPanel {
 //        });
 		currentGameReviewID = chooseGameGetReviewID();
         if (currentGameReviewID==-1) {
-        	JOptionPane.showMessageDialog(null, "This game does not have a review yet");
+			ErrorPanels.createInfoDialogue("This game does not have a review yet");
+        	//JOptionPane.showMessageDialog(null, "This game does not have a review yet");
         } else {
 	        reviewOutput.setText(readReviewFromDatabase(currentGameReviewID));
 	        numberOfStarOutput.setText(readReviewStarFromDatabase(currentGameReviewID));
@@ -172,7 +173,8 @@ public class ReviewPanel extends JPanel {
 	    int reviewID = -1; // Default value if noteID is not found or an error occurs
 
 	    if (selectedGame.isEmpty() || selectedGame.equals("Log In to use")) {
-	        JOptionPane.showMessageDialog(this, "Please select a game first.", "Error", JOptionPane.ERROR_MESSAGE);
+	    	ErrorPanels.createErrorDialogue("Please select a game first.");
+	        //JOptionPane.showMessageDialog(this, "Please select a game first.", "Error", JOptionPane.ERROR_MESSAGE);
 	        return reviewID;
 	    }
 
@@ -212,7 +214,8 @@ public class ReviewPanel extends JPanel {
 	        if (rs.next()) {
 	            reviewText = rs.getString("text"); 
 	        } else {
-	            JOptionPane.showMessageDialog(this, "Review not found.", "Error", JOptionPane.ERROR_MESSAGE);
+				ErrorPanels.createErrorDialogue("Review not found.");
+	            //JOptionPane.showMessageDialog(this, "Review not found.", "Error", JOptionPane.ERROR_MESSAGE);
 	        }
 
 	    } catch (SQLException ex) {
@@ -235,7 +238,8 @@ public class ReviewPanel extends JPanel {
 	        if (rs.next()) {
 	            reviewText = rs.getString("NumberOfStars"); 
 	        } else {
-	            JOptionPane.showMessageDialog(this, "Review star not found.", "Error", JOptionPane.ERROR_MESSAGE);
+				ErrorPanels.createErrorDialogue("Review star not found.");
+	            //JOptionPane.showMessageDialog(this, "Review star not found.", "Error", JOptionPane.ERROR_MESSAGE);
 	        }
 
 	    } catch (SQLException ex) {
@@ -253,12 +257,33 @@ public class ReviewPanel extends JPanel {
 		String tempStar="";
 		String currentUser = userManager.getUser();
 		if (selectedGame.isEmpty()|| selectedGame=="" ||selectedGame=="Log In to use") {
-	        JOptionPane.showMessageDialog(this, "Please select a game first.", "Error", JOptionPane.ERROR_MESSAGE);
+			ErrorPanels.createErrorDialogue("Please select a game first.");
+	        //JOptionPane.showMessageDialog(this, "Please select a game first.", "Error", JOptionPane.ERROR_MESSAGE);
 	        return;
 	    }
     
 	    String reviewText = reviewInput.getText();
 	    String reviewStar = numberOfStarInput.getText();
+	    
+	    if (reviewText.length() > 500) {
+			ErrorPanels.createErrorDialogue("Note length must be 500 characters or less.");
+	    	//JOptionPane.showMessageDialog(this, "Note length must be 500 characters or less.", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
+	    try {
+			float score = Float.parseFloat(reviewStar);
+			if (score > 5 || score < 0) {
+				ErrorPanels.createInfoDialogue("Number of stars must be between 0 and 5.");
+				//JOptionPane.showMessageDialog(this, "Number of stars must be between 0 and 5.");
+				return;
+			}
+		} catch (NumberFormatException e) {
+			ErrorPanels.createInfoDialogue("Please enter a valid number.");
+			//JOptionPane.showMessageDialog(this, "Please enter a valid number.");
+			return;
+		}
+	    
+	    
 
 	    try  {
 	    	Connection conn = connectionManager.getConnection();
@@ -277,7 +302,9 @@ public class ReviewPanel extends JPanel {
 	        numberOfStarOutput.setText(tempStar);
 	        reviewOutput.setText(tempText);
 	        
-	        JOptionPane.showMessageDialog(this, "Review added successfully.");
+
+			ErrorPanels.createInfoDialogue("Review added successfully.");
+	        //JOptionPane.showMessageDialog(this, "Review added successfully.");
 	        refreshGames();
 
 	    } catch (SQLException ex) {
@@ -289,7 +316,8 @@ public class ReviewPanel extends JPanel {
 	
 	private void deleteReviewFromDatabase(int currentReviewId) {
 	    if (currentReviewId == -1) {
-	        JOptionPane.showMessageDialog(this, "No note selected to delete.", "Error", JOptionPane.ERROR_MESSAGE);
+	    	ErrorPanels.createInfoDialogue("No note selected to delete.");
+	        //JOptionPane.showMessageDialog(this, "No note selected to delete.", "Error", JOptionPane.ERROR_MESSAGE);
 	        return;
 	    }
 
@@ -301,7 +329,8 @@ public class ReviewPanel extends JPanel {
 	        reviewOutput.setText("");
 	        numberOfStarOutput.setText("");
 	        
-	        JOptionPane.showMessageDialog(this, "Note deleted successfully.");
+	        ErrorPanels.createInfoDialogue("Note deleted successfully.");
+	        //JOptionPane.showMessageDialog(this, "Note deleted successfully.");
 	        refreshGames();
 
 	    } catch (SQLException ex) {
@@ -313,9 +342,28 @@ public class ReviewPanel extends JPanel {
 	
 	private void updateReviewInDatabase(int currentReviewId, String newText, String newStar) {
 	    if (currentReviewId == -1) {
-	        JOptionPane.showMessageDialog(this, "No note selected to update.", "Error", JOptionPane.ERROR_MESSAGE);
+	    	ErrorPanels.createErrorDialogue("No note selected to update.");
+	        //JOptionPane.showMessageDialog(this, "No note selected to update.", "Error", JOptionPane.ERROR_MESSAGE);
 	        return;
 	    }
+	    
+	    if (newText.length() > 500) {
+	    	ErrorPanels.createErrorDialogue("Note length must be 500 characters or less.");
+	    	//JOptionPane.showMessageDialog(this, "Note length must be 500 characters or less.", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
+	    try {
+			float score = Float.parseFloat(newStar);
+			if (score > 5 || score < 0) {
+		    	ErrorPanels.createErrorDialogue("Number of stars must be between 0 and 5.");
+				//JOptionPane.showMessageDialog(this, "Number of stars must be between 0 and 5.");
+				return;
+			}
+		} catch (NumberFormatException e) {
+	    	ErrorPanels.createErrorDialogue("Please enter a valid number.");
+			//JOptionPane.showMessageDialog(this, "Please enter a valid number.");
+			return;
+		}
 
 	    try {
 	    	Connection conn = connectionManager.getConnection();
@@ -326,7 +374,8 @@ public class ReviewPanel extends JPanel {
 	        stmt.setString(3, newStar);
 	        
 	        stmt.executeUpdate();
-	        JOptionPane.showMessageDialog(this, "Review updated successfully.");
+	        ErrorPanels.createInfoDialogue("Review updated successfully.");
+	        //JOptionPane.showMessageDialog(this, "Review updated successfully.");
 	        refreshGames();
 
 	    } catch (SQLException ex) {
