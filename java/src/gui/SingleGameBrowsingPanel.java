@@ -17,7 +17,6 @@ public class SingleGameBrowsingPanel extends JPanel {
     private UserManager userManager;
     private JComboBox<String> gameList = new JComboBox<>();
     private JButton chooseButton = new JButton("Choose");
-    private JButton refreshGameListButton = new JButton("Refresh Game List");
     private JLabel infoLabel = new JLabel("Pick a game to view reviews and notes");
     private DefaultTableModel noteTableModel;
     private DefaultTableModel reviewTableModel;
@@ -40,7 +39,6 @@ public class SingleGameBrowsingPanel extends JPanel {
 
         gamePanel.add(gameList);
         gamePanel.add(chooseButton);
-        gamePanel.add(refreshGameListButton);
         add(gamePanel);
 
         // Create note output table
@@ -65,13 +63,6 @@ public class SingleGameBrowsingPanel extends JPanel {
         JLabel averageRating = new JLabel("Choose a game to view its rating");
 //        add(ratingLabel);
 //        add(averageRating);
-
-        refreshGameListButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                redoStoredGames();
-            }
-        });
 
         chooseButton.addActionListener(new ActionListener() {
             @Override
