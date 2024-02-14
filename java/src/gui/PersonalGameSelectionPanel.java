@@ -25,11 +25,13 @@ public class PersonalGameSelectionPanel extends GameSelectionPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (selectedGameName.equals("No Game Selected")) {
-					JOptionPane.showMessageDialog(null, "Please select a game first.");
+					ErrorPanels.createErrorDialogue("Please select a game first.");
+					//JOptionPane.showMessageDialog(null, "Please select a game first.");
 				} else if (removeSelectedGameFromUser()) {
 					updateManager.redoSearch();
 					updateManager.GameBrowserUpdate();
-					JOptionPane.showMessageDialog(null, "Successfully removed game from account!");
+					ErrorPanels.createInfoDialogue("Successfully removed game from account!");
+					//JOptionPane.showMessageDialog(null, "Successfully removed game from account!");
 				}
 				
 			}
@@ -43,7 +45,8 @@ public class PersonalGameSelectionPanel extends GameSelectionPanel {
 				if (!selectedGameName.equals("No Game Selected")) {
 					showAddNotePanel();
 				} else {
-					JOptionPane.showMessageDialog(null, "Please select a game first.");
+					ErrorPanels.createErrorDialogue("Please select a game first.");
+					//JOptionPane.showMessageDialog(null, "Please select a game first.");
 				}
 				
 			}
@@ -55,7 +58,8 @@ public class PersonalGameSelectionPanel extends GameSelectionPanel {
 				if (!selectedGameName.equals("No Game Selected")) {
 					showAddReviewPanel();
 				} else {
-					JOptionPane.showMessageDialog(null, "Please select a game first.");
+					ErrorPanels.createErrorDialogue("Please select a game first.");
+					//JOptionPane.showMessageDialog(null, "Please select a game first.");
 				}
 			}
 		});
@@ -117,15 +121,19 @@ public class PersonalGameSelectionPanel extends GameSelectionPanel {
 			System.out.println(returnCode);
 			
 			if (returnCode == 1 || returnCode == 2) {
-				JOptionPane.showMessageDialog(null, "Game is null or nonexistant, please select a game");
+				ErrorPanels.createErrorDialogue("Game is null or nonexistant, please select a game");
+//				JOptionPane.showMessageDialog(null, "Game is null or nonexistant, please select a game");
 				return false;
 			} else if (returnCode == 3 || returnCode == 4) {
-				JOptionPane.showMessageDialog(null, "Username is null or nonexistant, please sign in.");
+				ErrorPanels.createErrorDialogue("Username is null or nonexistant, please sign in.");
+//				JOptionPane.showMessageDialog(null, "Username is null or nonexistant, please sign in.");
 				return false;
 			} else if (returnCode == 5) {
-				JOptionPane.showMessageDialog(null, "You do not have that game added to your library, please try again");
+				ErrorPanels.createErrorDialogue("You do not have that game added to your library, please try again");
+//				JOptionPane.showMessageDialog(null, "You do not have that game added to your library, please try again");
 				return false;
 			} else if (returnCode != 0) {
+				ErrorPanels.createErrorDialogue("An error occured while removing this game. Please try again");
 				JOptionPane.showMessageDialog(null, "An error occured while removing this game. Please try again");
 				return false;
 			}
@@ -136,16 +144,20 @@ public class PersonalGameSelectionPanel extends GameSelectionPanel {
 			e.printStackTrace();
 			System.out.println(returnCode);
 			if (returnCode == 3 || returnCode == 4) {
-				JOptionPane.showMessageDialog(null, "Username is null or nonexistant, please sign in.");
+				ErrorPanels.createErrorDialogue("Username is null or nonexistant, please sign in.");
+//				JOptionPane.showMessageDialog(null, "Username is null or nonexistant, please sign in.");
 				return false;
 			} else if (returnCode == 1 || returnCode == 2) {
-				JOptionPane.showMessageDialog(null, "Game is null or nonexistant, please select a game");
+				ErrorPanels.createErrorDialogue("Game is null or nonexistant, please select a game");
+//				JOptionPane.showMessageDialog(null, "Game is null or nonexistant, please select a game");
 				return false;
 			} else if (returnCode == 5) {
-				JOptionPane.showMessageDialog(null, "You do not have that game added to your library, please try again");
+				ErrorPanels.createErrorDialogue("You do not have that game added to your library, please try again");
+//				JOptionPane.showMessageDialog(null, "You do not have that game added to your library, please try again");
 				return false;
 			} else if (returnCode != 0) {
-				JOptionPane.showMessageDialog(null, "An error occured while removing this game.");
+				ErrorPanels.createErrorDialogue("An error occured while removing this game. Please try again");
+//				JOptionPane.showMessageDialog(null, "An error occured while removing this game.");
 				return false;
 			}
 		}
