@@ -73,7 +73,7 @@ public class MainViewer {
 //		MainTabs.addTab("Notes", null, notePanel, "Add Notes");
 //		MainTabs.addTab("Reviews", null, reviewPanel, "Add Reviews");
 		MainTabs.addTab("Browse Games", null, gameBrowserPanel, "Browse All Games");
-		MainTabs.addTab("SingleGameBrowse", null, singleGameBrowsingScreen , "Browse single game");
+		//MainTabs.addTab("SingleGameBrowse", null, singleGameBrowsingScreen , "Browse single game");
 
 		frame.add(LoginTabs);
 		

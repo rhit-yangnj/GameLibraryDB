@@ -7,9 +7,11 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class FullGameSelectionPanel extends GameSelectionPanel {
+	private SingleGameBrowsingPanel singleGameBrowsingPanel;
 
 	public FullGameSelectionPanel(UserManager userManager, ConnectionManager connectionManager,
 			UpdateManager updateManager) {
@@ -30,6 +32,45 @@ public class FullGameSelectionPanel extends GameSelectionPanel {
 			}
 		});
 		this.add(editGameButton);
+		
+		
+		this.seeReviewButton = new JButton("See Review For Selected Game");
+		this.seeReviewButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (selectedGameName.equals("No Game Selected")) {
+                    JOptionPane.showMessageDialog(null, "Please select a game first.");
+                } else {
+                    showSingleGameBrowsingPanel(selectedGameName);
+                }
+            }
+        });
+        this.add(seeReviewButton);
+    }
+	
+//	
+//	private void showSingleGameBrowsingPanel(String selectedGameName) {
+//        if (singleGameBrowsingPanel == null) {
+//            singleGameBrowsingPanel = new SingleGameBrowsingPanel(connectionManager, userManager);
+//        }
+//        singleGameBrowsingPanel.addReviewsToTable(selectedGameName); 
+//        JOptionPane.showMessageDialog(null, singleGameBrowsingPanel); 
+//    }
+	
+	
+	private void showSingleGameBrowsingPanel(String selectedGameName) {
+	    JFrame frame = new JFrame("Single Game Browsing Panel");
+	    
+	    if (singleGameBrowsingPanel == null) {
+	        singleGameBrowsingPanel = new SingleGameBrowsingPanel(connectionManager, userManager);
+	    }
+	    
+	    singleGameBrowsingPanel.addReviewsToTable(selectedGameName); 
+	    
+	    frame.add(singleGameBrowsingPanel);
+	    
+	    frame.pack();
+	    frame.setVisible(true);
 	}
 	
 	private boolean addSelectedGameToUser() {

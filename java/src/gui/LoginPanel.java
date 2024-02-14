@@ -9,10 +9,12 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.Base64;
 import java.util.Random;
 
@@ -70,32 +72,64 @@ public class LoginPanel extends JPanel {
 		add(infoLabel);
 	}
 
+	
 	public boolean login(String username, char[] password) {
-		Connection connection = connectionManager.getConnection();
-		String query = "SELECT Salt, HashPass FROM [User] WHERE Username = ?";
-		try {
-			PreparedStatement stmt = connection.prepareStatement(query);
-			stmt.setString(1, username); 
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				byte[] salt = rs.getBytes("Salt");
-				String correctHash = rs.getString("HashPass"); 
-				String inputHash = hashPassword(salt, password);
-				if(correctHash.equals(inputHash)) {
-					this.userManager.setUser(username);
-					 JOptionPane.showMessageDialog(null, "Login Successful");
-					return true; 
-				}
-				
-				
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Login Failed");
-		}
-		JOptionPane.showMessageDialog(null, "Login Failed");
-	return false;
+	    Connection connection = connectionManager.getConnection();
+	    try {
+	        CallableStatement stmt = connection.prepareCall("{call GetUserCredentials(?, ?, ?)}");
+	        stmt.setString(1, username);
+	        stmt.registerOutParameter(2, Types.BINARY);
+	        stmt.registerOutParameter(3, Types.VARCHAR);
+	        stmt.execute();
+
+	        byte[] salt = stmt.getBytes(2);
+	        String correctHash = stmt.getString(3);
+
+	        String inputHash = hashPassword(salt, password);
+
+	        if (correctHash.equals(inputHash)) {
+	            this.userManager.setUser(username);
+	            JOptionPane.showMessageDialog(null, "Login Successful");
+	            return true;
+	        } else {
+	            JOptionPane.showMessageDialog(null, "Login Failed");
+	            return false;
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        JOptionPane.showMessageDialog(null, "Login Failed");
+	        return false;
+	    }
 	}
+
+	
+	
+//	public boolean login(String username, char[] password) {
+//		Connection connection = connectionManager.getConnection();
+//		String query = "SELECT Salt, HashPass FROM [User] WHERE Username = ?";
+//		try {
+//			PreparedStatement stmt = connection.prepareStatement(query);
+//			stmt.setString(1, username); 
+//			ResultSet rs = stmt.executeQuery();
+//			while (rs.next()) {
+//				byte[] salt = rs.getBytes("Salt");
+//				String correctHash = rs.getString("HashPass"); 
+//				String inputHash = hashPassword(salt, password);
+//				if(correctHash.equals(inputHash)) {
+//					this.userManager.setUser(username);
+//					 JOptionPane.showMessageDialog(null, "Login Successful");
+//					return true; 
+//				}
+//				
+//				
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			JOptionPane.showMessageDialog(null, "Login Failed");
+//		}
+//		JOptionPane.showMessageDialog(null, "Login Failed");
+//	return false;
+//	}
 
 //	 private boolean login(String username, char[] password) {
 //    	 try {
