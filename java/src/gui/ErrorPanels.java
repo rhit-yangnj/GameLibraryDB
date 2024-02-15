@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 public class ErrorPanels{
-	private static final int TIME_VISIBLE = 2000;
+	private static final int TIME_VISIBLE = 1500;
 
 	public static void createInfoDialogue(String message) {
 		JOptionPane pane = new JOptionPane(message,

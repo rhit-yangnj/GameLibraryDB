@@ -37,8 +37,8 @@ public class PersonalGameSelectionPanel extends GameSelectionPanel {
 				
 			}
 		});
-		addNoteButton = new JButton("Add Note");
-		addReviewButton = new JButton("Add Review");
+		addNoteButton = new JButton("Edit Note");
+		addReviewButton = new JButton("Edit Review");
 		addNoteButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -69,12 +69,13 @@ public class PersonalGameSelectionPanel extends GameSelectionPanel {
 		this.add(addReviewButton);
 		
 		
-		this.seeReviewButton = new JButton("See Review For Selected Game");
+		this.seeReviewButton = new JButton("View Reviews");
 		this.seeReviewButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (selectedGameName.equals("No Game Selected")) {
-                    JOptionPane.showMessageDialog(null, "Please select a game first.");
+					ErrorPanels.createErrorDialogue("Please select a game first.");
+//                    JOptionPane.showMessageDialog(null, "Please select a game first.");
                 } else {
                     showSingleGameBrowsingPanel(selectedGameName);
                 }
@@ -122,7 +123,7 @@ public class PersonalGameSelectionPanel extends GameSelectionPanel {
 	        singleGameBrowsingPanel = new SingleGameBrowsingPanel(connectionManager, userManager);
 	    }
 	    
-	    singleGameBrowsingPanel.addReviewsToTable(selectedGameName); 
+	    singleGameBrowsingPanel.updateTable(selectedGameName); 
 	    
 	    frame.add(singleGameBrowsingPanel);
 	    

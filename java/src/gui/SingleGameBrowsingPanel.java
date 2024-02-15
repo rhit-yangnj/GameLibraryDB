@@ -15,10 +15,8 @@ import java.util.ArrayList;
 public class SingleGameBrowsingPanel extends JPanel {
     private ConnectionManager connectionManager;
     private UserManager userManager;
-    private JComboBox<String> gameList = new JComboBox<>();
-    private JButton chooseButton = new JButton("Choose");
-    private JLabel infoLabel = new JLabel("Pick a game to view reviews and notes");
-    private DefaultTableModel noteTableModel;
+    private JLabel infoLabel = new JLabel("Average Rating");
+    private JLabel gameLabel = new JLabel("GAME NAME");
     private DefaultTableModel reviewTableModel;
     private String selectedGameName = "";
 
@@ -29,25 +27,19 @@ public class SingleGameBrowsingPanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         JPanel gamePanel = new JPanel();
+        gamePanel.add(gameLabel);
         gamePanel.add(infoLabel);
 
-        String[] games = getAllStoredGames();
-        for (String game : games) {
-            gameList.addItem(game);
-        }
-
-        gamePanel.add(gameList);
-        gamePanel.add(chooseButton);
         add(gamePanel);
 
 
-        JPanel notePanel = new JPanel(new BorderLayout());
-        notePanel.add(new JLabel("Notes:"), BorderLayout.NORTH);
-        noteTableModel = new DefaultTableModel(new Object[]{"Notes", "Users"}, 0);
-        JTable noteOutput = new JTable(noteTableModel);
-        JScrollPane noteScrollPane = new JScrollPane(noteOutput);
-        notePanel.add(noteScrollPane, BorderLayout.CENTER);
-        add(notePanel);
+//        JPanel notePanel = new JPanel(new BorderLayout());
+//        notePanel.add(new JLabel("Notes:"), BorderLayout.NORTH);
+//        noteTableModel = new DefaultTableModel(new Object[]{"Notes", "Users"}, 0);
+//        JTable noteOutput = new JTable(noteTableModel);
+//        JScrollPane noteScrollPane = new JScrollPane(noteOutput);
+//        notePanel.add(noteScrollPane, BorderLayout.CENTER);
+//        add(notePanel);
 
 
         JPanel reviewPanel = new JPanel(new BorderLayout());
@@ -63,25 +55,6 @@ public class SingleGameBrowsingPanel extends JPanel {
 //        add(ratingLabel);
 //        add(averageRating);
 
-        chooseButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                selectedGameName = (String) gameList.getSelectedItem();
-                JOptionPane.showMessageDialog(null, "Selected game: " + selectedGameName);
-                addNotesToTable(selectedGameName); 
-                addReviewsToTable(selectedGameName); 
-                displayAverageRating(selectedGameName); 
-            }
-        });
-    }
-
-    public void redoStoredGames() {
-        this.gameList.removeAllItems();
-        String[] currentList = getAllStoredGames();
-
-        for (int i = 0; i < currentList.length; i++) {
-            this.gameList.addItem(currentList[i]);
-        }
     }
 
     private String[] getAllStoredGames() {
@@ -116,31 +89,31 @@ public class SingleGameBrowsingPanel extends JPanel {
         }
     }
 
-    public void addNotesToTable(String selectedGameName) {
-        Connection connection = connectionManager.getConnection();
-        ArrayList<String[]> noteData = new ArrayList<>();
-
-        CallableStatement stmt;
-        try {
-
-            stmt = connection.prepareCall("{call GetNotesForGame(?)}");
-            stmt.setString(1, selectedGameName);
-            ResultSet rs = stmt.executeQuery();
-
- 
-            while (rs.next()) {
-                String note = rs.getString("Note");
-                String user = rs.getString("NoteWriter");
-                noteData.add(new String[]{note, user});
-            }
-
-
-            updateNoteTable(noteData);
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        }
-    }
+//    public void addNotesToTable(String selectedGameName) {
+//        Connection connection = connectionManager.getConnection();
+//        ArrayList<String[]> noteData = new ArrayList<>();
+//
+//        CallableStatement stmt;
+//        try {
+//
+//            stmt = connection.prepareCall("{call GetNotesForGame(?)}");
+//            stmt.setString(1, selectedGameName);
+//            ResultSet rs = stmt.executeQuery();
+//
+// 
+//            while (rs.next()) {
+//                String note = rs.getString("Note");
+//                String user = rs.getString("NoteWriter");
+//                noteData.add(new String[]{note, user});
+//            }
+//
+//
+//            updateNoteTable(noteData);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//
+//        }
+//    }
 
     public void addReviewsToTable(String selectedGameName) {
         Connection connection = connectionManager.getConnection();
@@ -169,12 +142,12 @@ public class SingleGameBrowsingPanel extends JPanel {
     }
 
 
-    public void updateNoteTable(ArrayList<String[]> noteData) {
-        noteTableModel.setRowCount(0); 
-        for (String[] row : noteData) {
-            noteTableModel.addRow(row);
-        }
-    }
+//    public void updateNoteTable(ArrayList<String[]> noteData) {
+//        noteTableModel.setRowCount(0); 
+//        for (String[] row : noteData) {
+//            noteTableModel.addRow(row);
+//        }
+//    }
 
 
     public void updateReviewTable(ArrayList<String[]> reviewData) {
@@ -208,5 +181,12 @@ public class SingleGameBrowsingPanel extends JPanel {
 
         }
     }
+
+	public void updateTable(String SGN) {
+		this.gameLabel.setText("<HTML><U>"+ SGN +"</U></HTML>");
+		this.selectedGameName = SGN;
+        addReviewsToTable(SGN); 
+        displayAverageRating(SGN); 		
+	}
 
 }

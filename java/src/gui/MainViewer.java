@@ -54,13 +54,12 @@ public class MainViewer {
 		GameEditPanel gameScreen = new GameEditPanel(connectionManager, userManager);
 //		NotePanel notePanel = new NotePanel(connectionManager, userManager);
 //		ReviewPanel reviewPanel = new ReviewPanel(connectionManager, userManager);
-		SingleGameBrowsingPanel singleGameBrowsingScreen = new SingleGameBrowsingPanel(connectionManager, userManager);
 		GameBrowserPanel gameBrowserPanel = new GameBrowserPanel(connectionManager, userManager, false);
 		GameBrowserPanel personalGameBrowserPanel = new GameBrowserPanel(connectionManager, userManager, true);
 		
 		
 //		UpdateManager updateManager = new UpdateManager(gameScreen, gameBrowserPanel, this, notePanel, reviewPanel, personalGameBrowserPanel);
-		UpdateManager updateManager = new UpdateManager(gameScreen, gameBrowserPanel, this, personalGameBrowserPanel, singleGameBrowsingScreen);
+		UpdateManager updateManager = new UpdateManager(gameScreen, gameBrowserPanel, this, personalGameBrowserPanel);
 		
 		gameScreen.setUpdateManager(updateManager);
 		gameBrowserPanel.setUpdateManager(updateManager);
