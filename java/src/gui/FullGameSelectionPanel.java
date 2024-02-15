@@ -36,12 +36,13 @@ public class FullGameSelectionPanel extends GameSelectionPanel {
 		this.add(editGameButton);
 		
 		
-		this.seeReviewButton = new JButton("See Review For Selected Game");
+		this.seeReviewButton = new JButton("See Reviews");
 		this.seeReviewButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (selectedGameName.equals("No Game Selected")) {
-                    JOptionPane.showMessageDialog(null, "Please select a game first.");
+					ErrorPanels.createErrorDialogue("Please select a game first.");
+//                    JOptionPane.showMessageDialog(null, "Please select a game first.");
                 } else {
                     showSingleGameBrowsingPanel(selectedGameName);
                 }
@@ -67,7 +68,7 @@ public class FullGameSelectionPanel extends GameSelectionPanel {
 	        singleGameBrowsingPanel = new SingleGameBrowsingPanel(connectionManager, userManager);
 	    }
 	    
-	    singleGameBrowsingPanel.addReviewsToTable(selectedGameName); 
+	    singleGameBrowsingPanel.updateTable(selectedGameName); 
 	    
 	    frame.add(singleGameBrowsingPanel);
 	    
