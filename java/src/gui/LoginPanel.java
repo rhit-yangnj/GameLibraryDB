@@ -84,6 +84,11 @@ public class LoginPanel extends JPanel {
 
 	        byte[] salt = stmt.getBytes(2);
 	        String correctHash = stmt.getString(3);
+	        
+	        if(salt == null) {
+		        ErrorPanels.createWarningDialogue("Login Failed");
+		        return false;
+	        }
 
 	        String inputHash = hashPassword(salt, password);
 
